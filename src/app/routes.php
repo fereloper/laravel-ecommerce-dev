@@ -15,3 +15,8 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+/*
+ * Please use all routes as like as this route. So that we can change the route from single point
+ */
+Route::get('login',['as' => 'login','uses' => 'LoginController@login']);
