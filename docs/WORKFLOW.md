@@ -1,5 +1,5 @@
 ##Project Workflow
-<hr>
+
 ####Sign Up
 1. User can register using email, mobile number and password.
 2. User can be registered automatically when they will add new product in the system. System will be registered him according to his product information like-email, mobile etc.
