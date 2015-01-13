@@ -4,3 +4,5 @@
 [http://www.taptapnetworks.com/en/blog/how-export-data-mysql-mongodb-and-viceversa-pentaho](http://www.taptapnetworks.com/en/blog/how-export-data-mysql-mongodb-and-viceversa-pentaho)
 
 
+####2. Tools
+[Mongo Studio](http://www.litixsoft.de/download/)
