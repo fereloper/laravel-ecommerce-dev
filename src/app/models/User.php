@@ -2,6 +2,6 @@
 
 class User extends MongoLid {
 
-  protected $collection = 'users';  
+  protected $collection = 'users';
 
 }

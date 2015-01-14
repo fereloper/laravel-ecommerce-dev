@@ -35,6 +35,7 @@
 </head>
 <body>
 	<div class="welcome">
+		{{ $users }}
 		<p>{{ Session::get('message') }}</p>
 
 		<form action="/api/v1/user/login" method="POST">

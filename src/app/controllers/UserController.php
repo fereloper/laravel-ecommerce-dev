@@ -9,9 +9,8 @@ class UserController extends \BaseController {
 	 */
 	public function index()
 	{
-
 		
-		return View::make('hello');
+		return User::all();
 	}
 
 
@@ -21,9 +20,19 @@ class UserController extends \BaseController {
 	 * @return Response
 	 */
 	public function create()
-	{
-    $users = User::all();
-		return $users;
+	{	
+		$message = Session::get('message');
+
+		$form = '<p>' . $message . '</p>';
+    	$form .= '<form action="/api/v1/user" method="POST">';
+		$form .= Form::token();
+		$form .= 'Name: <input type="text" name="name" placeholder="Enter your name" id="name"><br>';
+		$form .= 'Email: <input type="email" name="email" placeholder="Enter your email" id="email"><br>';
+		$form .= 'Password: <input type="text" name="password" placeholder="Enter your password" id="password"><br>';
+		$form .= '<input type="submit">';
+		$form .= '</form>';
+		
+		return $form;
 	}
 
 
@@ -34,9 +43,22 @@ class UserController extends \BaseController {
 	 */
 	public function store()
 	{
-		// $input = Input::all();
+		if ( Input::get('email') !='' ) {
 
-		return Input::all();;
+			$user = new User;
+
+		    $user->name 	= Input::get('name');
+		    $user->email 	= Input::get('email');
+		    $user->password = Input::get('password');
+
+		    $user->save();
+
+		    return Redirect::to('api/v1/user');
+		}
+
+		return Redirect::to('api/v1/user/create')->with('message', 'All fields are required!.');
+		
+		
 	}
 
 
