@@ -44,8 +44,17 @@ class UserController extends \BaseController {
 	 * @return Response
 	 */
 	public function show($id)
-	{
-		return "Show user : " . $id;
+	{	
+		$user = array(
+			'name' 		=> $id,
+			'email'		=> 'imran@ergo-ventures.com',
+			'myproducts'=> array(
+				'title'	=> 'Product title1',
+				'price'	=> 195.00,
+			),
+		);
+
+		return Response::json($user, 200);
 	}
 
 
