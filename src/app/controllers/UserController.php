@@ -49,8 +49,8 @@ class UserController extends \BaseController {
 	public function show($id)
 	{	
 		$user = array(
-			'name' 		=> $id,
-			'email'		=> 'imran@ergo-ventures.com',
+			'name' 		=> 'Demo user',
+			'email'		=> 'user@email-address.com',
 			'myproducts'=> array(
 				'title'	=> 'Product title1',
 				'price'	=> 195.00,
@@ -99,9 +99,9 @@ class UserController extends \BaseController {
 	
 	public function login() {
 
-		if ( Input::get('name') == 'imran' && Input::get('password') == '123' )
+		if ( Input::get('email') == 'imrancluster@gmail.com' && Input::get('password') == '123' )
 	    {
-	        return Redirect::to('api/v1/user/' . Input::get('name') );
+	        return Redirect::to('api/v1/user/demouser');
 	    }
 
 		return Redirect::to('api/v1/user')->with('message', 'Login Failed');

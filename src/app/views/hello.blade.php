@@ -36,10 +36,10 @@
 <body>
 	<div class="welcome">
 		<p>{{ Session::get('message') }}</p>
-		
+
 		<form action="/api/v1/user/login" method="POST">
 			{{Form::token()}}
-			Name: <input type="text" name="name" placeholder="Enter your name" id="name"><br>
+			Email: <input type="email" name="email" placeholder="Enter your email" id="email"><br>
 			Password: <input type="text" name="password" placeholder="Enter your password" id="password"><br>
 			<input type="submit">
 		</form>
