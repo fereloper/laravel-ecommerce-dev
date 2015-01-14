@@ -9,7 +9,9 @@ class UserController extends \BaseController {
 	 */
 	public function index()
 	{
-		return "User Dashboard";
+
+		
+		return View::make('hello');
 	}
 
 
@@ -32,9 +34,9 @@ class UserController extends \BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
+		// $input = Input::all();
 
-		return "Successfully posted!";
+		return Input::all();;
 	}
 
 
@@ -92,6 +94,17 @@ class UserController extends \BaseController {
 	public function destroy($id)
 	{
 		return "Deleteing user : " . $id;
+	}
+
+	
+	public function login() {
+
+		if ( Input::get('name') == 'imran' && Input::get('password') == '123' )
+	    {
+	        return Redirect::to('api/v1/user/' . Input::get('name') );
+	    }
+
+		return Redirect::to('api/v1/user')->with('message', 'Login Failed');
 	}
 
 

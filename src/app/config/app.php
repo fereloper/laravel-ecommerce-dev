@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -122,7 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
     
-    'Zizaco\MongolidLaravel\MongolidServiceProvider',
+    	'Zizaco\MongolidLaravel\MongolidServiceProvider',
 
 	),
 
@@ -191,7 +191,7 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
     
-    'MongoLid'    => 'Zizaco\MongolidLaravel\MongoLid',
+    	'MongoLid'    => 'Zizaco\MongolidLaravel\MongoLid',
 
 	),
 
