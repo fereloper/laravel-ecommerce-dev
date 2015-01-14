@@ -12,10 +12,12 @@
  */
 
 Route::get('/', function() {
-  return route('login');
+  return "Home Page";
 });
 
 /*
  * Please use all routes as like as this route. So that we can change the route from single point
  */
-Route::get('user/create', ['as' => 'login', 'uses' => 'LoginController@login']);
+// Route::get('user/create', ['as' => 'login', 'uses' => 'LoginController@login']);
+
+Route::resource('user', 'UserController');
