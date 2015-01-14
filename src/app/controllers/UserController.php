@@ -20,7 +20,8 @@ class UserController extends \BaseController {
 	 */
 	public function create()
 	{
-		return "Form show for registration!";
+    $users = User::all();
+		return $users;
 	}
 
 
