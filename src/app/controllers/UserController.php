@@ -21,18 +21,9 @@ class UserController extends \BaseController {
 	 */
 	public function create()
 	{	
-		$message = Session::get('message');
-
-		$form = '<p>' . $message . '</p>';
-    	$form .= '<form action="/api/v1/user" method="POST">';
-		$form .= Form::token();
-		$form .= 'Name: <input type="text" name="name" placeholder="Enter your name" id="name"><br>';
-		$form .= 'Email: <input type="email" name="email" placeholder="Enter your email" id="email"><br>';
-		$form .= 'Password: <input type="text" name="password" placeholder="Enter your password" id="password"><br>';
-		$form .= '<input type="submit">';
-		$form .= '</form>';
 		
-		return $form;
+		
+		return array('message' => 'Any form can be show.');
 	}
 
 
@@ -43,6 +34,8 @@ class UserController extends \BaseController {
 	 */
 	public function store()
 	{
+		$data = array();
+
 		if ( Input::get('email') !='' ) {
 
 			$user = new User;
@@ -53,10 +46,22 @@ class UserController extends \BaseController {
 
 		    $user->save();
 
-		    return Redirect::to('api/v1/user');
-		}
+		    $data = array(
+				'message'	=> 'successfully registered',
+				'code'		=> 200,
+			);
 
-		return Redirect::to('api/v1/user/create')->with('message', 'All fields are required!.');
+		    
+		} else {
+
+			$data = array(
+				'message'	=> 'not registered',
+				'code'		=> 202,
+			);
+
+		}
+		
+		return $data;
 		
 		
 	}
@@ -70,16 +75,25 @@ class UserController extends \BaseController {
 	 */
 	public function show($id)
 	{	
-		$user = array(
-			'name' 		=> 'Demo user',
-			'email'		=> 'user@email-address.com',
-			'myproducts'=> array(
-				'title'	=> 'Product title1',
-				'price'	=> 195.00,
-			),
-		);
+		$data = array();
 
-		return Response::json($user, 200);
+		$user = User::find($id);
+
+		
+		if ( isset($user->email) ) {
+
+			$data = $user;
+			$data['code'] = 200;
+
+		} else {
+
+			$data = array(
+				'user'	=> 'user not found',
+				'code'		=> 203,
+			);
+		}
+
+		return $data;
 	}
 
 
@@ -91,7 +105,25 @@ class UserController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		return "Editing user : " . $id;
+		$data = array();
+
+		$user = User::find($id);
+
+		
+		if ( isset($user->email) ) {
+
+			$data = $user;
+			$data['code'] = 200;
+
+		} else {
+
+			$data = array(
+				'user'	=> 'not found',
+				'code'		=> 204,
+			);
+		}
+
+		return $data;
 	}
 
 
@@ -103,7 +135,32 @@ class UserController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		return "Updating user : " . $id;
+		$data = array();
+
+		$user = User::first($id);
+		
+		if ( isset($user->email) ) {
+
+			$user->name 	= Input::get('name');
+			$user->email 	= Input::get('email');
+			$user->password = Input::get('password');
+
+			$user->save();
+
+			$data = array(
+				'user'	=> 'user successfully updated.',
+				'code'		=> 200,
+			);
+
+		} else {
+
+			$data = array(
+				'user'	=> 'user not found',
+				'code'		=> 205,
+			);
+		}
+
+		return $data;
 	}
 
 
@@ -115,18 +172,52 @@ class UserController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		return "Deleteing user : " . $id;
+		$user = User::first($id);
+
+    	if( isset($user) ){
+
+    		$user->delete();
+
+    		$data = array(
+				'user'	=> 'user successfully deleted.',
+				'code'	=> 200,
+			);
+
+    	} else {
+
+    		$data = array(
+				'user'	=> 'user not found',
+				'code'	=> 206,
+			);
+    	}
+
+    	return $data;
 	}
 
 	
 	public function login() {
 
-		if ( Input::get('email') == 'imrancluster@gmail.com' && Input::get('password') == '123' )
-	    {
-	        return Redirect::to('api/v1/user/demouser');
-	    }
+		$data = array();
 
-		return Redirect::to('api/v1/user')->with('message', 'Login Failed');
+		$user = User::find( array('email' => Input::get('email'), 'password' => Input::get('password') ));
+
+		if( isset($user->email) && isset($user->password) ){
+
+			$data = array(
+				'message'	=> 'logged in',
+				'code'		=> 200,
+			);
+
+		} else {
+
+			$data = array(
+				'message'	=> 'not logged in',
+				'code'		=> 201,
+			);
+
+		}
+		
+		return $data;
 	}
 
 
