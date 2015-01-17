@@ -118,11 +118,11 @@ return array(
 		'Illuminate\Database\SeedServiceProvider',
 		'Illuminate\Session\SessionServiceProvider',
 		'Illuminate\Translation\TranslationServiceProvider',
-		'Illuminate\Validation\ValidationServiceProvider',
+		//'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-    
-    	'Zizaco\MongolidLaravel\MongolidServiceProvider',
+                'Zizaco\MongolidLaravel\MongolidServiceProvider',
+                'MongoValidation\MongoValidationServiceProvider',
 
 	),
 

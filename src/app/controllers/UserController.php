@@ -38,11 +38,13 @@ class UserController extends \BaseController {
 
 		if ( Input::get('email') !='' ) {
 
-			$user = new User;
-
-		    $user->name 	= Input::get('name');
-		    $user->email 	= Input::get('email');
-		    $user->password = Hash::make(Input::get('password'));
+                    $user = new User;
+                    $user->first_name = Input::get('first_name');
+                    $user->last_name = Input::get('last_name');
+                    $user->email = Input::get('email');
+                    $user->password = Hash::make(Input::get('password'));
+                    $user->city = "";//Input::get('city');
+                    $user->country = "";//Input::get('country');
 
 		    $user->save();
 
@@ -60,6 +62,31 @@ class UserController extends \BaseController {
 			);
 
 		}
+                
+//                $validator = Validator::make(Input::all(), User::$rules);
+//        $data = array();
+//        if ($validator->passes()) {
+//            $user = new User;
+//
+//            $user->first_name = Input::get('first_name');
+//            $user->last_name = Input::get('last_name');
+//            $user->email = Input::get('email');
+//            $user->password = Hash::make(Input::get('password'));
+//            $user->city = "";//Input::get('city');
+//            $user->country = "";//Input::get('country');
+//            $user->save();
+//
+//            $data = array(
+//                'message' => 'successfully registered',
+//                'code' => 200,
+//            );
+//        } else {
+//            // validation has failed, display error messages
+//            $data = array(
+//                'message' => 'not registered',
+//                'code' => 202,
+//            );
+//        }
 		
 		return $data;
 		

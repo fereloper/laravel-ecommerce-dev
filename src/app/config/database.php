@@ -81,9 +81,7 @@ return array(
 			'username' => 'root',
 			'password' => '',
 			'prefix'   => '',
-		),
-    
-    
+		),         
 
 	),
 
