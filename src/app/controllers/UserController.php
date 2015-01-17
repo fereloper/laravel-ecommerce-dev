@@ -42,7 +42,7 @@ class UserController extends \BaseController {
 
 		    $user->name 	= Input::get('name');
 		    $user->email 	= Input::get('email');
-		    $user->password = Input::get('password');
+		    $user->password = Hash::make(Input::get('password'));
 
 		    $user->save();
 
@@ -199,23 +199,36 @@ class UserController extends \BaseController {
 
 		$data = array();
 
-		$user = User::find( array('email' => Input::get('email'), 'password' => Input::get('password') ));
-
-		if( isset($user->email) && isset($user->password) ){
-
-			$data = array(
-				'message'	=> 'logged in',
+		//$user = User::find( array('email' => Input::get('email'), 'password' => Input::get('password') ));
+                if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')))) {
+                    //return Redirect::to('users/dashboard')->with('message', 'You are now logged in!');
+                    $data = array(
+				'message'	=> 'You are now logged in!',
 				'code'		=> 200,
 			);
-
-		} else {
-
-			$data = array(
-				'message'	=> 'not logged in',
+                } else {
+                    //return Redirect::to('users/login')->with('message', 'Your username/password combination was incorrect')->withInput();
+                    $data = array(
+				'message'	=> 'Your username/password combination was incorrect',
 				'code'		=> 201,
 			);
+                }
 
-		}
+//		if( isset($user->email) && isset($user->password) ){
+//
+//			$data = array(
+//				'message'	=> 'logged in',
+//				'code'		=> 200,
+//			);
+//
+//		} else {
+//
+//			$data = array(
+//				'message'	=> 'not logged in',
+//				'code'		=> 201,
+//			);
+//
+//		}
 		
 		return $data;
 	}

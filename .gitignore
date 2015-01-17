@@ -6,3 +6,5 @@
 /src/.env.php
 *.DS_Store
 /src/Thumbs.db
+/src/nbproject/private/
+/src/nbproject/*
