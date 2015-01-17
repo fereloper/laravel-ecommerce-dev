@@ -23,7 +23,7 @@ class UserController extends \BaseController {
 	{	
 		
 		
-		return array('message' => 'Any form can be show.');
+		return array('message' => 'Form can be show.');
 	}
 
 
