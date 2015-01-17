@@ -10,5 +10,10 @@ class UserTest extends TestCase {
   public function testThatTrueIsTrue() {
     $this->assertTrue(true);
   }
+  
+  public function testResponseIsOk() {
+    $this->call('GET','/');
+    $this->assertResponseOk();
+  }
 
 }

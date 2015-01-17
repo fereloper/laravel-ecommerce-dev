@@ -2,7 +2,25 @@
 
 /*
  * Include all routes file
+ * Comment out for UnitTest. After testing it will be  uncomment
  */
-foreach (File::allFiles(__DIR__.'/routes') as $partial) {
-    include_once $partial->getPathname();
-}
+//foreach (File::allFiles(__DIR__.'/routes') as $partial) {
+//    include_once $partial->getPathname();
+//}
+
+
+Route::get('/', function() {
+  return "Home Page";
+});
+
+/*
+ * Please use all routes as like as this route. So that we can change the route from single point
+ */
+// Route::get('user/create', ['as' => 'login', 'uses' => 'LoginController@login']);
+
+Route::group(array('prefix' => 'api/v1'),  function(){
+	Route::resource('user', 'UserController');
+
+	// custom method for user login
+	Route::post('user/login', 'UserController@login');
+});
