@@ -2,244 +2,204 @@
 
 class UserController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		
-		return User::all();
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index() {
+
+        return User::all();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create() {
 
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{	
-		
-		
-		return array('message' => 'Form show.');
-	}
+        return array('message' => 'Form show.');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store() {
+        $validator = Validator::make(Input::all(), User::$rules);
+        $data = array();
+        if ($validator->passes()) {
+            $user = new User;
+            $checkDublicate = User::first(['email'=>Input::get('email')]);
+            if($checkDublicate instanceOf User){
+               $data = array(
+                'message' => 'You have already been registared',
+                'code' => 203,
+                ); 
+            }else{
+                $user->first_name = Input::get('first_name');
+                $user->last_name = Input::get('last_name');
+                $user->email = Input::get('email');
+                $user->password = Hash::make(Input::get('password'));
+                $user->phone = Input::get('phone');;
+                $user->city = ""; //Input::get('city');
+                $user->country = ""; //Input::get('country');
+                $user->save();
+
+                $data = array(
+                    'message' => 'successfully registered',
+                    'code' => 200,
+                );
+            }
+            
+        } else {
+            // validation has failed, display error messages
+            $data = array(
+                'message' => 'Validation failed not registered',
+                'code' => 202,
+            );
+        }
+
+        return $data;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        $data = array();
+
+        $user = User::find($id);
 
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$data = array();
+        if (isset($user->email)) {
 
-		if ( Input::get('email') !='' ) {
+            $data = $user;
+            $data['code'] = 200;
+        } else {
 
-                    $user = new User;
-                    $user->first_name = Input::get('first_name');
-                    $user->last_name = Input::get('last_name');
-                    $user->email = Input::get('email');
-                    $user->password = Hash::make(Input::get('password'));
-                    $user->city = "";//Input::get('city');
-                    $user->country = "";//Input::get('country');
+            $data = array(
+                'user' => 'user not found',
+                'code' => 203,
+            );
+        }
 
-		    $user->save();
+        return $data;
+    }
 
-		    $data = array(
-				'message'	=> 'successfully registered',
-				'code'		=> 200,
-			);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id) {
+        $data = array();
 
-		    
-		} else {
-
-			$data = array(
-				'message'	=> 'not registered',
-				'code'		=> 202,
-			);
-
-		}
-                
-//                $validator = Validator::make(Input::all(), User::$rules);
-//        $data = array();
-//        if ($validator->passes()) {
-//            $user = new User;
-//
-//            $user->first_name = Input::get('first_name');
-//            $user->last_name = Input::get('last_name');
-//            $user->email = Input::get('email');
-//            $user->password = Hash::make(Input::get('password'));
-//            $user->city = "";//Input::get('city');
-//            $user->country = "";//Input::get('country');
-//            $user->save();
-//
-//            $data = array(
-//                'message' => 'successfully registered',
-//                'code' => 200,
-//            );
-//        } else {
-//            // validation has failed, display error messages
-//            $data = array(
-//                'message' => 'not registered',
-//                'code' => 202,
-//            );
-//        }
-		
-		return $data;
-		
-		
-	}
+        $user = User::find($id);
 
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{	
-		$data = array();
+        if (isset($user->email)) {
 
-		$user = User::find($id);
+            $data = $user;
+            $data['code'] = 200;
+        } else {
 
-		
-		if ( isset($user->email) ) {
+            $data = array(
+                'user' => 'not found',
+                'code' => 204,
+            );
+        }
 
-			$data = $user;
-			$data['code'] = 200;
+        return $data;
+    }
 
-		} else {
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id) {
+        $data = array();
 
-			$data = array(
-				'user'	=> 'user not found',
-				'code'		=> 203,
-			);
-		}
+        $user = User::first($id);
 
-		return $data;
-	}
+        if (isset($user->email)) {
 
+            $user->name = Input::get('name');
+            $user->email = Input::get('email');
+            $user->password = Input::get('password');
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$data = array();
+            $user->save();
 
-		$user = User::find($id);
+            $data = array(
+                'user' => 'user successfully updated.',
+                'code' => 200,
+            );
+        } else {
 
-		
-		if ( isset($user->email) ) {
+            $data = array(
+                'user' => 'user not found',
+                'code' => 205,
+            );
+        }
 
-			$data = $user;
-			$data['code'] = 200;
+        return $data;
+    }
 
-		} else {
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        $user = User::first($id);
 
-			$data = array(
-				'user'	=> 'not found',
-				'code'		=> 204,
-			);
-		}
+        if (isset($user)) {
 
-		return $data;
-	}
+            $user->delete();
 
+            $data = array(
+                'user' => 'user successfully deleted.',
+                'code' => 200,
+            );
+        } else {
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$data = array();
+            $data = array(
+                'user' => 'user not found',
+                'code' => 206,
+            );
+        }
 
-		$user = User::first($id);
-		
-		if ( isset($user->email) ) {
+        return $data;
+    }
 
-			$user->name 	= Input::get('name');
-			$user->email 	= Input::get('email');
-			$user->password = Input::get('password');
+    public function login() {
 
-			$user->save();
+        $data = array();
 
-			$data = array(
-				'user'	=> 'user successfully updated.',
-				'code'		=> 200,
-			);
-
-		} else {
-
-			$data = array(
-				'user'	=> 'user not found',
-				'code'		=> 205,
-			);
-		}
-
-		return $data;
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$user = User::first($id);
-
-    	if( isset($user) ){
-
-    		$user->delete();
-
-    		$data = array(
-				'user'	=> 'user successfully deleted.',
-				'code'	=> 200,
-			);
-
-    	} else {
-
-    		$data = array(
-				'user'	=> 'user not found',
-				'code'	=> 206,
-			);
-    	}
-
-    	return $data;
-	}
-
-	
-	public function login() {
-
-		$data = array();
-
-		//$user = User::find( array('email' => Input::get('email'), 'password' => Input::get('password') ));
-                if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')))) {
-                    //return Redirect::to('users/dashboard')->with('message', 'You are now logged in!');
-                    $data = array(
-				'message'	=> 'You are now logged in!',
-				'code'		=> 200,
-			);
-                } else {
-                    //return Redirect::to('users/login')->with('message', 'Your username/password combination was incorrect')->withInput();
-                    $data = array(
-				'message'	=> 'Your username/password combination was incorrect',
-				'code'		=> 201,
-			);
-                }
+        //$user = User::find( array('email' => Input::get('email'), 'password' => Input::get('password') ));
+        if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')))) {
+            //return Redirect::to('users/dashboard')->with('message', 'You are now logged in!');
+            $data = array(
+                'message' => 'You are now logged in!',
+                'code' => 200,
+            );
+        } else {
+            //return Redirect::to('users/login')->with('message', 'Your username/password combination was incorrect')->withInput();
+            $data = array(
+                'message' => 'Your username/password combination was incorrect',
+                'code' => 201,
+            );
+        }
 
 //		if( isset($user->email) && isset($user->password) ){
 //
@@ -256,9 +216,8 @@ class UserController extends \BaseController {
 //			);
 //
 //		}
-		
-		return $data;
-	}
 
+        return $data;
+    }
 
 }
