@@ -49,7 +49,6 @@ class UserController extends \BaseController {
                 $user->email = Input::get('email');
                 $user->password = Hash::make(Input::get('password'));
                 $user->phone = Input::get('phone');
-                ;
                 $user->city = Input::get('city');
                 $user->country = Input::get('country');
                 $user->status_token = $token;
@@ -213,9 +212,13 @@ class UserController extends \BaseController {
 
         if (isset($user->email)) {
 
-            $user->name = Input::get('name');
+            $user->first_name = Input::get('first_name');
+            $user->last_name = Input::get('last_name');
             $user->email = Input::get('email');
-            $user->password = Input::get('password');
+            $user->password = Hash::make(Input::get('password'));
+            $user->phone = Input::get('phone');
+            $user->city = Input::get('city');
+            $user->country = Input::get('country');
 
             $user->save(true);
 
