@@ -7,8 +7,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"zizaco/mongolid": "dev-master",
-                "zizaco/mongolid-laravel": "dev-master",
-                "navruzm/laravel-mongo-validation": "*"
+        "zizaco/mongolid-laravel": "dev-master"
+                
 	},
 	"autoload": {
 		"classmap": [

@@ -122,7 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
                 'Zizaco\MongolidLaravel\MongolidServiceProvider',
-                'MongoValidation\MongoValidationServiceProvider',
+                
 
 	),
 
