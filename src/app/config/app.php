@@ -118,11 +118,11 @@ return array(
 		'Illuminate\Database\SeedServiceProvider',
 		'Illuminate\Session\SessionServiceProvider',
 		'Illuminate\Translation\TranslationServiceProvider',
-		//'Illuminate\Validation\ValidationServiceProvider',
+		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-                'Zizaco\MongolidLaravel\MongolidServiceProvider',
-                
+     'Zizaco\MongolidLaravel\MongolidServiceProvider'
+
 
 	),
 
@@ -191,7 +191,8 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
     
-    	'MongoLid'    => 'Zizaco\MongolidLaravel\MongoLid',
+        'MongoLid'          => 'Zizaco\MongolidLaravel\MongoLid',
+        'Carbon'			=> 'Carbon\Carbon',
 
 	),
 
