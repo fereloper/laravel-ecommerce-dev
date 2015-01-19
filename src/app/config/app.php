@@ -190,7 +190,8 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
     
-                'MongoLid'          => 'Zizaco\MongolidLaravel\MongoLid',
+        'MongoLid'          => 'Zizaco\MongolidLaravel\MongoLid',
+        'Carbon'			=> 'Carbon\Carbon',
 
 	),
 
