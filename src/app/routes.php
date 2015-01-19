@@ -18,12 +18,12 @@ Route::get('/', function() {
  */
 // Route::get('user/create', ['as' => 'login', 'uses' => 'LoginController@login']);
 
-Route::group(array('prefix' => 'api/v1'),  function(){
-	Route::resource('user', 'UserController');
+Route::group(array(['prefix' => 'api/v1', 'after' => 'allowOrigin']), function() {
+  Route::resource('user', 'UserController');
 
-	// custom method for user login
-	Route::post('user/login', 'UserController@login');
-        Route::get('auth/{token}/verify/{id}', 'UserController@verifyUser');
-        Route::post('auth/request-token', 'UserController@requestToken');
-        Route::post('auth/forgot-password', 'UserController@forgotPassword');
+  // custom method for user login
+  Route::post('user/login', 'UserController@login');
+  Route::get('auth/{token}/verify/{id}', 'UserController@verifyUser');
+  Route::post('auth/request-token', 'UserController@requestToken');
+  Route::post('auth/forgot-password', 'UserController@forgotPassword');
 });
