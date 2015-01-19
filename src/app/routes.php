@@ -10,7 +10,7 @@
 
 
 Route::get('/', function() {
-  return "Home Page";
+  return View::make('index');
 });
 
 /*
@@ -18,7 +18,7 @@ Route::get('/', function() {
  */
 // Route::get('user/create', ['as' => 'login', 'uses' => 'LoginController@login']);
 
-Route::group(array(['prefix' => 'api/v1', 'after' => 'allowOrigin']), function() {
+Route::group(array('prefix' => 'api/v1'), function() {
   Route::resource('user', 'UserController');
 
   // custom method for user login
