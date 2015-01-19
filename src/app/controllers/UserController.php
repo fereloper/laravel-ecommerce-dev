@@ -42,7 +42,8 @@ class UserController extends \BaseController {
                 );
             } else {
                 $user = new User;
-                $token = $this->createToken(Input::get('first_name') . Input::get('email') . Input::get('last_name'));
+                $value = Input::get('first_name').Input::get('email').Input::get('last_name');
+                $token = $this->createToken($value);
                 $user->first_name = Input::get('first_name');
                 $user->last_name = Input::get('last_name');
                 $user->email = Input::get('email');
@@ -83,7 +84,8 @@ class UserController extends \BaseController {
      * @return Response
      */
     public function createToken($value) {
-        return $token = Hash::make($value . time());
+        $token_value = $value.time();
+        return $token = Hash::make($token_value);
     }
 
     /**
@@ -95,7 +97,8 @@ class UserController extends \BaseController {
     public function requestToken() {
         $checkExistance = User::first(['email' => Input::get('email')]);
         if ($checkExistance instanceOf User) {
-            $token = $this->createToken($checkExistance->first_name . $checkExistance->email . $checkExistance->last_name);
+            $token_value = $checkExistance->first_name.$checkExistance->email.$checkExistance->last_name;
+            $token = $this->createToken($token_value);
             $id = $checkExistance->_id;
             if (Input::get('sector') == "email-verification") {
                 $checkExistance->status_token = $token;
@@ -118,7 +121,7 @@ class UserController extends \BaseController {
                     );
                 } else {
                     $checkExistance->status_token = $token;
-                    $checkExistance->token_expire_date = ISODate(Carbon::now()->addDay());
+                    $checkExistance->token_expire_date = Carbon::now()->addDay();
                     $checkExistance->save(true);
 
                     $data = array(
@@ -338,9 +341,9 @@ class UserController extends \BaseController {
     public function forgotPassword() {
         $data = array();
         $id = Crypt::decrypt(Input::get('id'));
-        //return $token = Input::get('token');
+        $token = Input::get('token');
         
-        $checkExistance = User::first(['_id' => $id]);
+        $checkExistance = User::first(['_id' => $id, 'status_token' => $token]);
 
         if ($checkExistance instanceOf User) {
             if (Carbon::now() <= $checkExistance->token_expire_date["date"]) {
