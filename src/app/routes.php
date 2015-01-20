@@ -25,7 +25,7 @@ Route::group(array('prefix' => 'api/v1'), function() {
   Route::post('user/login', 'UserController@login');
   Route::get('auth/{token}/verify/{id}', 'UserController@verifyUser');
   Route::post('auth/request-token', 'UserController@requestToken');
-  Route::post('auth/forgot-password', 'UserController@forgotPassword');
+  Route::post('auth/change-password', 'UserController@forgotPassword');
   Route::post('city/get-city', 'UserController@getCity');
   Route::get('country/get-country', 'UserController@getCountry');
 });
