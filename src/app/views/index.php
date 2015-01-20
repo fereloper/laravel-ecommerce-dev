@@ -318,11 +318,13 @@
     <script type="text/javascript" src="js/lib/angular/angular.min.js"></script>
     <script type="text/javascript" src="js/lib/angular/angular-resource.min.js"></script>
     <script type="text/javascript" src="js/lib/angular/angular-route.min.js"></script>
-    <script src="js/lib/angular/angular-animate.min.js" ></script>
-    <script src="js/lib/angular/toaster.js"></script>
-      <!--    <script type="text/javascript" src="js/angular/controllers.js"></script>
-          <script type="text/javascript" src="js/angular/services.js"></script>-->
+<!--    <script src="js/lib/angular/angular-animate.min.js" ></script>
+    <script src="js/lib/angular/toaster.js"></script>-->
     <script type="text/javascript" src="js/angular/app.js"></script>
+    <script type="text/javascript" src="js/angular/routes.js"></script>
+    <script type="text/javascript" src="js/angular/controllers.js"></script>
+    <script type="text/javascript" src="js/angular/services.js"></script>
+
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/price-range.js"></script>
     <script type="text/javascript" src="js/jquery.scrollUp.min.js"></script>
