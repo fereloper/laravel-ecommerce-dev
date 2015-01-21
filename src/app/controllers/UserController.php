@@ -455,32 +455,49 @@ class UserController extends \BaseController {
      * @return Response
      */
     public function logout() {
+      Auth::logout();
 
-        $data = array();
-
-        if (Auth::logout()) {
-            
-            $data = array(
-                'response'  => 'OK',
-                'message'   => 'You have been successfully logged out.',
-                'code'      => 200,
-            );
-
-        } else {
-            
-            $data = array(
-                'response'  => 'ERROR',
-                'message'   => 'Problem occured when trying to logout, pleaes try again.',
-                'code'      => 400,
-            );
-        }
-        return $data;
+//        $data = array();
+//
+//        if (Auth::logout()) {
+//            
+//            $data = array(
+//                'response'  => 'OK',
+//                'message'   => 'You have been successfully logged out.',
+//                'code'      => 200,
+//            );
+//
+//        } else {
+//            
+//            $data = array(
+//                'response'  => 'ERROR',
+//                'message'   => 'Problem occured when trying to logout, pleaes try again.',
+//                'code'      => 400,
+//            );
+//        }
+//        return $data;
     }
     
     /**
-     * Function for sending mail.
+     * Function for checking user is logged in or not.
      *
-     * @return Response
+     * @return boolean
      */
-
+    public function isLogged() {
+      if(Auth::check()){
+        $data = array(
+                'response'  => 'OK',
+                'message'   => 'Logged in',
+                'code'      => 400,
+            );
+      }else{
+        $data = array(
+                'response'  => 'ERROR',
+                'message'   => 'Not logged in.',
+                'code'      => 400,
+            );
+      }
+      return $data;
+    }
+    
 }
