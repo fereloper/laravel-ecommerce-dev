@@ -72,9 +72,13 @@ class UserController extends \BaseController {
                     'id'             => $id,
                     'link'           => 'http://codewarriors.me/#/user/verify/'.$token.'/'.$id
                 );
+                try{
                 Mail::send('emails.auth.verify', array('name'=>Input::get('name'), 'values' =>$params), function($message){
                     $message->to(Input::get('email'), Input::get('name'))->subject('[Ergo Warriors] Please Verify Your Email');
                 });
+                }catch(Exception $e){
+                    
+                }
 
                 $data = array(
                     'response'          => 'OK',
