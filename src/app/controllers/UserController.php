@@ -428,4 +428,33 @@ class UserController extends \BaseController {
         return $data;
     }
 
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return Response
+     */
+    public function logout() {
+
+        $data = array();
+
+        if (Auth::logout()) {
+            
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'You have been successfully logged out.',
+                'code'      => 200,
+            );
+
+        } else {
+            
+            $data = array(
+                'response'  => 'ERROR',
+                'message'   => 'Problem occured when trying to logout, pleaes try again.',
+                'code'      => 400,
+            );
+        }
+        return $data;
+    }
+
 }
