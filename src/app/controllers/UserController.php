@@ -49,11 +49,11 @@ class UserController extends \BaseController {
             } else {
 
                 $user   = new User;
-                $value  = Input::get('first_name').Input::get('email').Input::get('last_name');
+                $value  = Input::get('user_name').Input::get('email'); //.Input::get('last_name')
                 $token  = $this->createToken($value);
 
-                $user->first_name           = Input::get('first_name');
-                $user->last_name            = Input::get('last_name');
+                $user->first_name           = Input::get('user_name');
+                //$user->last_name            = Input::get('last_name');
                 $user->email                = Input::get('email');
                 $user->password             = Hash::make(Input::get('password'));
                 $user->phone                = Input::get('phone');
@@ -113,7 +113,7 @@ class UserController extends \BaseController {
 
         if ($checkExistance instanceOf User) {
 
-            $token_value    = $checkExistance->first_name.$checkExistance->email.$checkExistance->last_name;
+            $token_value    = $checkExistance->first_name.$checkExistance->email;//.$checkExistance->last_name;
             $token          = $this->createToken($token_value);
             $id             = $checkExistance->_id;
 
@@ -244,8 +244,8 @@ class UserController extends \BaseController {
 
         if (isset($user->email)) {
 
-            $user->first_name   = Input::get('first_name');
-            $user->last_name    = Input::get('last_name');
+            $user->first_name   = Input::get('user_name');
+            //$user->last_name    = Input::get('last_name');
             $user->email        = Input::get('email');
             $user->password     = Hash::make(Input::get('password'));
             $user->phone        = Input::get('phone');
@@ -310,7 +310,7 @@ class UserController extends \BaseController {
         if (Auth::attempt($users)) {
             $user = User::first(array('email' => $users['email']));
             $person = array(
-                'name'      => $user->first_name." ".$user->last_name,
+                'name'      => $user->first_name,//." ".$user->last_name,
                 'email'     => $user->email,
             );
             
