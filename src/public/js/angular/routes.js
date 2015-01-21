@@ -20,10 +20,10 @@ app.config(['$routeProvider', function($routeProvider) {
               templateUrl: 'template/profile_edit.html',
               controller: 'ProfileCtrl'
             })
-            .when('/user/verify', {
-              title: "Profile Edit",
-              templateUrl: 'template/profile_edit.html',
-              controller: 'ProfileCtrl'
+            .when('/user/verify/:token/:id', {
+              title: "Verify your account",
+              templateUrl: 'template/verify.html',
+              controller: 'verifyCtrl'
             });
   }]);
 

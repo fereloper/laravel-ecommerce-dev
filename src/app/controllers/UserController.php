@@ -388,6 +388,12 @@ class UserController extends \BaseController {
                     'code'      => 304,
                 );
             }
+        }else{
+           $data = array(
+                    'response'  => 'ERROR',
+                    'message'   => 'Something wrong with your verification. try again later.',
+                    'code'      => 304,
+                );
         }
 
         return $data;

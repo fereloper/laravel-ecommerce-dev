@@ -2,6 +2,8 @@
 
 app.controller('authCtrl', function($scope, $rootScope, $routeParams, $location, $http, authService) {
   //initially set those objects to null to avoid undefined error
+  console.log($routeParams.verifyId);
+
   $scope.login = {};
   $scope.signup = {};
   $scope.doLogin = function(user) {
@@ -11,6 +13,8 @@ app.controller('authCtrl', function($scope, $rootScope, $routeParams, $location,
   $scope.signUp = function(user) {
     authService.signup(user);
   };
+
+
 
 });
 
@@ -51,4 +55,13 @@ app.controller('ProfileCtrl', ['$scope', '$location', 'authService', 'sessionSer
       }
     }
   }]);
+
+app.controller('verifyCtrl', function($scope, $rootScope, $routeParams, $location, $http, Data) {
+
+  Data.get('auth/' + $routeParams.token + '/verify/' + $routeParams.id).then(function(results) {
+      $scope.message = results.message;
+  });
+
+
+});
  
