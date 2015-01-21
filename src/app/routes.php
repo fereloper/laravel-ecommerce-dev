@@ -35,4 +35,6 @@ Route::group(array('prefix' => 'api/v1'), function() {
   
   Route::get('country/get-country', 'CountryController@getCountry');
 
+  Route::get('user/logout', 'UserController@logout');
+
 });
