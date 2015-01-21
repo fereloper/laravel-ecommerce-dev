@@ -188,11 +188,11 @@ class UserController extends \BaseController {
 
             $data = $user;
             $data['code'] = 200;
-            $data['response'] = 'OK';
+            $data['status'] = 'success';
         } else {
 
             $data = array(
-                'response' => 'ERROR',
+                'status' => 'error',
                 'message' => 'user not found',
                 'code' => 204,
             );
@@ -225,14 +225,14 @@ class UserController extends \BaseController {
             $user->save(true);
 
             $data = array(
-                'response' => 'OK',
+                'status' => 'success',
                 'message' => 'user successfully updated.',
                 'code' => 200,
             );
         } else {
 
             $data = array(
-                'response' => 'ERROR',
+                'status' => 'error',
                 'message' => 'user not found',
                 'code' => 205,
             );
@@ -255,14 +255,14 @@ class UserController extends \BaseController {
             $user->delete();
 
             $data = array(
-                'response' => 'OK',
+                'status' => 'success',
                 'message' => 'user successfully deleted.',
                 'code' => 200,
             );
         } else {
 
             $data = array(
-                'response' => 'ERROR',
+                'status' => 'error',
                 'message' => 'user not found',
                 'code' => 206,
             );
@@ -272,17 +272,22 @@ class UserController extends \BaseController {
     }
 
     public function login() {
-
-        $data = array();
+        $data = array();        
         if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')))) {
+            $user = User::first(['email' => 'feroj21@bepari.com']);
+            $person = array(
+              'name' => $user->first_name." ".$user->last_name,
+              'email' => $user->email,
+            );
+            
             $data = array(
-                'response' => 'OK',
-                'message' => 'You are now logged in!',
+                'status' => 'success',
+                'message' => $person,
                 'code' => 200,
             );
         } else {
             $data = array(
-                'response' => 'ERROR',
+                'status' => 'error',
                 'message' => 'Your username/password combination was incorrect',
                 'code' => 201,
             );
@@ -309,20 +314,20 @@ class UserController extends \BaseController {
                     $checkExistance->save(true);
 
                     $data = array(
-                        'response' => 'OK',
+                        'status' => 'success',
                         'message' => 'Email successfully verified',
                         'code' => 203,
                     );
                 } else {
                     $data = array(
-                        'response' => 'ERROR',
+                        'status' => 'error',
                         'message' => 'Your email is already verified.',
                         'code' => 203,
                     );
                 }
             } else {
                 $data = array(
-                    'response' => 'ERROR',
+                    'status' => 'error',
                     'message' => 'Email validation token expired. You need to request for a new one',
                     'code' => 203,
                 );
@@ -351,20 +356,20 @@ class UserController extends \BaseController {
                 $checkExistance->save(true);
 
                 $data = array(
-                    'response' => 'OK',
+                    'status' => 'success',
                     'message' => 'Password changed successfully.',
                     'code' => 200,
                 );
             } else {
                 $data = array(
-                    'response' => 'ERROR',
+                    'status' => 'error',
                     'message' => 'Forgot password token expired. You need to request for a new one',
                     'code' => 203,
                 );
             }
         } else {
             $data = array(
-                'response' => 'ERROR',
+                'status' => 'error',
                 'message' => 'Not a valid user.',
                 'code' => 203,
             );
