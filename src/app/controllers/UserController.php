@@ -312,6 +312,7 @@ class UserController extends \BaseController {
             $person = array(
                 'name'      => $user->first_name,//." ".$user->last_name,
                 'email'     => $user->email,
+                'id'        => $user->_id,
             );
             
             $data = array(
