@@ -49,7 +49,7 @@ class UserController extends \BaseController {
             } else {
 
                 $user   = new User;
-                $value  = Input::get('user_name').Input::get('email'); //.Input::get('last_name')
+                $value  = Input::get('name').Input::get('email'); //.Input::get('last_name')
                 $token  = $this->createToken($value);
 
                 $user->first_name           = Input::get('name');
@@ -111,7 +111,7 @@ class UserController extends \BaseController {
         
         $token_value = $value.time();
 
-        return $token = Hash::make($token_value);
+        return $token = md5($token_value);
     }
 
     /**
