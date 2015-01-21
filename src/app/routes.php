@@ -21,11 +21,11 @@ Route::get('/', function() {
 Route::group(array('prefix' => 'api/v1'), function() {
   Route::resource('user', 'UserController');
 
-  // custom method for user login
+  // custom method for user login and registration
   Route::post('user/login', 'UserController@login');
   Route::get('auth/{token}/verify/{id}', 'UserController@verifyUser');
   Route::post('auth/request-token', 'UserController@requestToken');
   Route::post('auth/change-password', 'UserController@forgotPassword');
-  Route::post('city/get-city', 'UserController@getCity');
-  Route::get('country/get-country', 'UserController@getCountry');
+  Route::post('city/get-city', 'CountryController@getCity');
+  Route::get('country/get-country', 'CountryController@getCountry');
 });

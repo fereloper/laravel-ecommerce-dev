@@ -373,16 +373,5 @@ class UserController extends \BaseController {
 
         return $data;
     }
-    
-    public function getCountry() {
-        
-        $cursor = Country::all();
-        return $cursor;
-    }
-    
-    public function getCity() {
-        $country = (int)Input::get('country_id');
-        return $citys = City::where(['country_id' => $country]);
-    }
 
 }
