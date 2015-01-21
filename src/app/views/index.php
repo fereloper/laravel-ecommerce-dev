@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login | E-Shopper</title>
+    <title>Login | ERGO-Shopper</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -32,8 +32,8 @@
             <div class="col-sm-6">
               <div class="contactinfo">
                 <ul class="nav nav-pills">
-                  <li><a href=""><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                  <li><a href=""><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                  <li><a href=""><i class="fa fa-phone"></i> +888 888 88</a></li>
+                  <li><a href=""><i class="fa fa-envelope"></i> info@ergo.com</a></li>
                 </ul>
               </div>
             </div>
@@ -206,10 +206,7 @@
 
         <div class="footer-bottom">
           <div class="container">
-            <div class="row">
-              <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-              <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
-            </div>
+            
           </div>
         </div>
 
