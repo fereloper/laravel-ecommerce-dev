@@ -53,7 +53,8 @@ app.factory('authService', ['$http', '$location', 'sessionService', 'Data', func
             sessionService.set('user_id', results.message.id.$id);
             $location.path('/profile');
           } else {
-            $location.path('/user');
+             sessionService.set('message', results.message);
+            $location.path('/user/confirmation');
           }
         });
       },
