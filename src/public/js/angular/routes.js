@@ -24,6 +24,9 @@ app.config(['$routeProvider', function($routeProvider) {
               title: "Verify your account",
               templateUrl: 'template/verify.html',
               controller: 'verifyCtrl'
+            })
+            .otherwise({
+              redirectTo: 'user'
             });
   }]);
 
