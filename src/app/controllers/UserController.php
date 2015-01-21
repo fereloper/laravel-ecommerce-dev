@@ -70,7 +70,7 @@ class UserController extends \BaseController {
                 $data = array(
                     'response'          => 'OK',
                     'message'           => 'successfully registered',
-                    'verification_link' => Request::server('HTTP_HOST') . '/api/v1/auth/' . $token . '/verify/' . Crypt::encrypt($id),
+                    'verification_link' => Request::server('HTTP_HOST') . '/api/v1/auth/' . $token . '/verify/' .$id,
                     'id'                => $id,
                     'code'              => 200,
                 );
@@ -126,7 +126,7 @@ class UserController extends \BaseController {
                 $data = array(
                     'response'          => 'OK',
                     'message'           => 'New token created and mailed to your email.',
-                    'verification_link' => Request::server('HTTP_HOST') . '/api/v1/auth/' . $token . '/verify/' . Crypt::encrypt($id),
+                    'verification_link' => Request::server('HTTP_HOST') . '/api/v1/auth/' . $token . '/verify/' .$id,
                     'id'                => $id,
                     'code'              => 200,
                 );
@@ -151,7 +151,7 @@ class UserController extends \BaseController {
                         'response'  => 'OK',
                         'message'   => 'New token created and mailed to your email.',
                         'token'     => $token,
-                        'id'        => Crypt::encrypt($id),
+                        'id'        => $id,
                         'code'      => 200,
                     );
                 }
@@ -340,7 +340,7 @@ class UserController extends \BaseController {
     public function verifyUser($token, $id) {
 
         $data           = array();
-        $id             = Crypt::decrypt($id);
+        //$id             = Crypt::decrypt($id);
         $checkExistance = User::first(['_id' => $id, 'status_token' => $token]);
 
         if ($checkExistance instanceOf User) {
@@ -388,7 +388,7 @@ class UserController extends \BaseController {
     public function forgotPassword() {
 
         $data   = array();
-        $id     = Crypt::decrypt(Input::get('id'));
+        //$id     = Crypt::decrypt(Input::get('id'));
         $token  = Input::get('token');
         
         $checkExistance = User::first(['_id' => $id, 'status_token' => $token]);
