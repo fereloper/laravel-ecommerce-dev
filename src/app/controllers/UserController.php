@@ -305,10 +305,10 @@ class UserController extends \BaseController {
     }
 
     public function login() {
-
+        $users = array('email' => Input::get('email'), 'password' => Input::get('password'));
         $data = array();        
-        if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')))) {
-            $user = User::first(['email' => 'feroj21@bepari.com']);
+        if (Auth::attempt($users)) {
+            $user = User::first(array('email' => $users['email']));
             $person = array(
                 'name'      => $user->first_name." ".$user->last_name,
                 'email'     => $user->email,

@@ -48,9 +48,8 @@ app.factory('sessionService', ['$http', function ($http) {
 app.factory('authService', ['$http', '$location', 'sessionService', 'Data', function ($http, $location, sessionService, Data) {
         return{
             login: function (user) {
-                Data.post('user/login', {
-                    user: user
-                }).then(function (results) {
+                Data.post('user/login',  user).then(function (results) {
+                  console.log(results);
                     if (results.response == "OK") {
                         sessionService.set('user', 1);
                         $location.path('/home');
