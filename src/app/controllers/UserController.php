@@ -417,7 +417,7 @@ class UserController extends \BaseController {
             $data = array(
                 'response'  => 'ERROR',
                 'message'   => 'Not a valid user.',
-                'code'      => 203,
+                'code'      => 401,
             );
 
         }
