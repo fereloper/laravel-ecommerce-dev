@@ -66,11 +66,20 @@ class UserController extends \BaseController {
                 $user->save(true);
 
                 $id = $user->_id;
+                
+                $params = array(
+                    'token'          => $token,
+                    'id'             => $id,
+                    'link'           => 'http://codewarriors.me/#/user/verify/'.$token.'/'.$id
+                );
+                Mail::send('emails.auth.verify', array('name'=>Input::get('name'), 'values' =>$params), function($message){
+                    $message->to(Input::get('email'), Input::get('name'))->subject('[Ergo Warriors] Please Verify Your Email');
+                });
 
                 $data = array(
                     'response'          => 'OK',
                     'message'           => 'successfully registered',
-                    'verification_link' => Request::server('HTTP_HOST') . '/api/v1/auth/' . $token . '/verify/' .$id,
+                    'token'             => $token,
                     'id'                => $id,
                     'code'              => 200,
                 );
@@ -456,5 +465,11 @@ class UserController extends \BaseController {
         }
         return $data;
     }
+    
+    /**
+     * Function for sending mail.
+     *
+     * @return Response
+     */
 
 }
