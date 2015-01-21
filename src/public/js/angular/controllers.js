@@ -1,9 +1,9 @@
 'user strict';
 
 app.controller('authCtrl', function($scope, $rootScope, $routeParams, $location, $http, authService) {
-  //initially set those objects to null to avoid undefined error
-  console.log($routeParams.verifyId);
-
+  if (authService.isLogged()) {
+    $location.path('profile');
+  }
   $scope.login = {};
   $scope.signup = {};
   $scope.doLogin = function(user) {
