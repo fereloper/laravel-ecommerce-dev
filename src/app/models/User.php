@@ -18,8 +18,8 @@ class User extends MongoLid implements UserInterface {
     
     
     public static $rules = array(
-        'first_name'=>'required|min:2',
-        'last_name'=>'required|min:2',
+        'name'=>'required|min:2',
+        //'last_name'=>'required|min:2',
         'email'=>'required|email',
         'password'=>'required|alpha_num|between:6,12|confirmed',
         'password_confirmation'=>'required|alpha_num|between:6,12'
