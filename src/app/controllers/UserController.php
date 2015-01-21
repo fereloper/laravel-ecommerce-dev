@@ -111,7 +111,7 @@ class UserController extends \BaseController {
         
         $token_value = $value.time();
 
-        return $token = Hash::make($token_value);
+        return $token = md5($token_value);
     }
 
     /**
