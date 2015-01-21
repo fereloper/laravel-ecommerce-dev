@@ -88,3 +88,8 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+Route::filter('allowOrigin', function($route, $request, $response) 
+{
+    $response->header('access-control-allow-origin','*');
+});

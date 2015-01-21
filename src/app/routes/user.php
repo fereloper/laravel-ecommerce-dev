@@ -20,4 +20,10 @@ Route::get('/', function() {
  */
 // Route::get('user/create', ['as' => 'login', 'uses' => 'LoginController@login']);
 
-Route::resource('user', 'UserController');
+Route::group(array('prefix' => 'api/v1'),  function(){
+	Route::resource('user', 'UserController');
+
+	// custom method for user login
+	Route::post('user/login', 'UserController@login');
+});
+
