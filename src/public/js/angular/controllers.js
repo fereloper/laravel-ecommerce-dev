@@ -59,9 +59,16 @@ app.controller('ProfileCtrl', ['$scope', '$location', 'authService', 'sessionSer
 app.controller('verifyCtrl', function($scope, $rootScope, $routeParams, $location, $http, Data) {
 
   Data.get('auth/' + $routeParams.token + '/verify/' + $routeParams.id).then(function(results) {
-      $scope.message = results.message;
+    $scope.message = results.message;
   });
 
+
+});
+
+app.controller('ConfirmCtrl', function($scope, $rootScope, $routeParams, $location, $http, sessionService) {
+  if (sessionService.get('message')) {
+    $scope.message = sessionService.get('message');
+  }
 
 });
  

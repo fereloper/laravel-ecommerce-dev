@@ -59,13 +59,9 @@ app.factory('authService', ['$http', '$location', 'sessionService', 'Data', func
       },
       signup: function(user) {
         Data.post('user', user).then(function(results) {
-          console.log(results);
-          if (results.response == "OK") {
+          sessionService.set('message', results.message);
+          $location.path('user/confirmation');
 
-            $location.path('profile');
-          } else {
-            $location.path('user');
-          }
         });
 
       },

@@ -82,7 +82,7 @@ class UserController extends \BaseController {
 
                 $data = array(
                     'response'          => 'OK',
-                    'message'           => 'successfully registered',
+                    'message'           => 'You have been registered successfully. Please check your mail for confirmation link.',
                     'token'             => $token,
                     'id'                => $id,
                     'code'              => 200,

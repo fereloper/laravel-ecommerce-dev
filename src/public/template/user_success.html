@@ -1,36 +1,8 @@
 
-<div class="col-sm-4 col-sm-offset-1">
-  <div class="login-form"><!--login form-->
-    <h2>Login to your account</h2>
-    <form name="loginForm"  role="form">
-
-      <input type="email" placeholder="Email Address" ng-model="login.email" required focus/>
-      <input type="password" placeholder="Password" name="password" ng-model="login.password" required />
-      <span>
-        <input type="checkbox" class="checkbox"> 
-        Keep me signed in
-      </span>
-      <button type="submit" class="btn btn-default" ng-click="doLogin(login)" data-ng-disabled="loginForm.$invalid">Login</button>
-    </form>
-  </div><!--/login form-->
+<div class="col-sm-8 col-sm-offset-2">
+  <p>{{message}}</p>
+  
+  <p>
+    <a href="#/user" >Go back to login page.</a>
+  </p>
 </div>
-<div class="col-sm-1">
-  <h2 class="or">OR</h2>
-</div>
-<div class="col-sm-4">
-  <div class="signup-form"><!--sign up form-->
-    <h2>New User Signup!</h2>
-    <form name="signupForm" role="form">
-      <input type="text" placeholder="Name" name="name" ng-model="signup.name" focus required>
-      <input type="email" placeholder="Email Address" name="email" ng-model="signup.email" >
-      <small ng-show="signupForm.email.$error.email" class="help-inline">Email is not valid</small>
-      <input type="password" placeholder="Password" name="password" ng-model="signup.password" required>
-      <small class="errorMessage" data-ng-show="signupForm.password.$dirty && signupForm.password.$invalid"> Enter Password.</small>
-      <input type="password" placeholder="Confirmed Password" name="password_confirmation" ng-model="signup.password_confirmation" password-match="signup.password" required>
-      <small class="errorMessage" data-ng-show="signupForm.password_confirmation.$dirty && signupForm.password_confirmation.$error.required"> Enter password again.</small>
-
-      <small class="errorMessage" data-ng-show="signupForm.password_confirmation.$dirty && signupForm.password_confirmation.$error.passwordNoMatch && !signupForm.password_confirmation.$error.required"> Password do not match.</small>
-
-      <button type="submit" class="btn btn-default" ng-click="signUp(signup)" data-ng-disabled="signupForm.$invalid">Signup</button>
-    </form>
-  </div><!--/sign up form-->

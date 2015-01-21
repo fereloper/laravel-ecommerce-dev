@@ -13,7 +13,7 @@ app.config(['$routeProvider', function($routeProvider) {
             .when('/user/confirmation', {
               title: "Successfully Registered",
               templateUrl: 'template/user_success.html',
-              controller: 'authCtrl'
+              controller: 'ConfirmCtrl'
             })
             .when('/user/edit', {
               title: "Profile Edit",
