@@ -18,6 +18,29 @@ Route::get('/', function() {
  */
 // Route::get('user/create', ['as' => 'login', 'uses' => 'LoginController@login']);
 
+App::singleton('oauth2', function() {
+
+    $storage = new OAuth2\Storage\Mongo(new \MongoClient());
+    $server = new OAuth2\Server($storage);
+
+    $server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
+    $server->addGrantType(new OAuth2\GrantType\UserCredentials($storage));
+
+    return $server;
+});
+
+Route::post('oauth/token', function()
+{
+  $bridgedRequest  = OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
+  $bridgedResponse = new OAuth2\HttpFoundationBridge\Response();
+
+  $bridgedResponse = App::make('oauth2')->handleTokenRequest($bridgedRequest, $bridgedResponse);
+
+  return $bridgedResponse;
+});
+
+
+
 Route::group(array('prefix' => 'api/v1'), function() {
 
   Route::resource('user', 'UserController');
@@ -32,11 +55,11 @@ Route::group(array('prefix' => 'api/v1'), function() {
   Route::post('auth/change-password', 'UserController@forgotPassword');
 
   Route::post('city/get-city', 'CountryController@getCity');
-  
+
   Route::get('country/get-country', 'CountryController@getCountry');
 
   Route::get('auth/logout', 'UserController@logout');
-  
+
   Route::get('auth/islogged', 'UserController@isLogged');
 
 });
