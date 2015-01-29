@@ -37,9 +37,9 @@ class UserController extends \BaseController {
         if ($validator->passes()) {
 
             $checkDublicate = User::first(['email' => Input::get('email')]);
-            
+
             if ($checkDublicate instanceOf User) {
-                
+
                 $data = array(
                     'response'  => 'ERROR',
                     'message'   => 'You have already been registared.',
@@ -66,7 +66,7 @@ class UserController extends \BaseController {
                 $user->save(true);
 
                 $id = $user->_id;
-                
+
                 $params = array(
                     'token'          => $token,
                     'id'             => $id,
@@ -77,7 +77,7 @@ class UserController extends \BaseController {
                     $message->to(Input::get('email'), Input::get('name'))->subject('[Ergo Warriors] Please Verify Your Email');
                 });
                 }catch(Exception $e){
-                    
+
                 }
 
                 $data = array(
@@ -87,6 +87,7 @@ class UserController extends \BaseController {
                     'id'                => $id,
                     'code'              => 200,
                 );
+
             }
 
         } else {
@@ -108,7 +109,7 @@ class UserController extends \BaseController {
      * @return Response
      */
     public function createToken($value) {
-        
+
         $token_value = $value.time();
 
         return $token = md5($token_value);
@@ -147,7 +148,7 @@ class UserController extends \BaseController {
             } else if (Input::get('sector') == "forgot-password") {
 
                 if ($checkExistance->status == 0) {
-                    
+
                     $data = array(
                         'response'  => 'ERROR',
                         'message'   => 'Your email is not verified yet. Please verify your email first.',
@@ -319,7 +320,7 @@ class UserController extends \BaseController {
 
     public function login() {
         $users = array('email' => Input::get('email'), 'password' => Input::get('password'));
-        $data = array();        
+        $data = array();
         if (Auth::attempt($users)) {
             $user = User::first(array('email' => $users['email']));
             $person = array(
@@ -327,7 +328,7 @@ class UserController extends \BaseController {
                 'email'     => $user->email,
                 'id'        => $user->_id,
             );
-            
+
             $data = array(
                 'response'  => 'OK',
                 'message'   => $person,
@@ -335,7 +336,7 @@ class UserController extends \BaseController {
             );
 
         } else {
-            
+
             $data = array(
                 'response'  => 'ERROR',
                 'message'   => 'Your username/password combination was incorrect',
@@ -410,7 +411,7 @@ class UserController extends \BaseController {
         $data   = array();
         //$id     = Crypt::decrypt(Input::get('id'));
         $token  = Input::get('token');
-        
+
         $checkExistance = User::first(['_id' => $id, 'status_token' => $token]);
 
         if ($checkExistance instanceOf User) {
@@ -436,7 +437,7 @@ class UserController extends \BaseController {
             }
 
         } else {
-            
+
             $data = array(
                 'response'  => 'ERROR',
                 'message'   => 'Not a valid user.',
@@ -460,7 +461,7 @@ class UserController extends \BaseController {
 //        $data = array();
 //
 //        if (Auth::logout()) {
-//            
+//
 //            $data = array(
 //                'response'  => 'OK',
 //                'message'   => 'You have been successfully logged out.',
@@ -468,7 +469,7 @@ class UserController extends \BaseController {
 //            );
 //
 //        } else {
-//            
+//
 //            $data = array(
 //                'response'  => 'ERROR',
 //                'message'   => 'Problem occured when trying to logout, pleaes try again.',
@@ -477,7 +478,7 @@ class UserController extends \BaseController {
 //        }
 //        return $data;
     }
-    
+
     /**
      * Function for checking user is logged in or not.
      *
@@ -499,5 +500,24 @@ class UserController extends \BaseController {
       }
       return $data;
     }
-    
+
+    public function test() {
+        // configure your available scopes
+$defaultScope = 'basic';
+$supportedScopes = array(
+  'basic',
+  'postonwall',
+  'accessphonenumber'
+);
+$memory = new OAuth2\Storage\Memory(array(
+  'default_scope' => $defaultScope,
+  'supported_scopes' => $supportedScopes
+));
+$scopeUtil = new OAuth2\Scope($memory);
+
+ App::make('oauth2')->setScopeUtil($scopeUtil);
+         App::make('storage')->setUser("a@gmail.com", "123654");
+
+    }
+
 }

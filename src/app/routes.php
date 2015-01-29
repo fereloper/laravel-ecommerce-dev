@@ -19,15 +19,7 @@ Route::get('/', function() {
 // Route::get('user/create', ['as' => 'login', 'uses' => 'LoginController@login']);
 
 //dd($mongo);die();
-App::singleton('oauth2', function() {
-    
-    //$config = $this->app->make('config');
-//    $connectionString = 'mongodb://'.''.':'.''.'@'.'127.0.0.1'.':'.'27017'.'/'.'mongolid';
-//    $connection = new Zizaco\Mongolid\MongoDbConnector;
-//    $mongo = $connection->getConnection($connectionString);
-    
-    //dd($mongo);die();
-
+App::singleton('storage',function(){
     $mongodb = array(
             'host'     => '127.0.0.1',
             'port'     => 27017,
@@ -36,10 +28,27 @@ App::singleton('oauth2', function() {
             'password'     => '',
         );
     $storage = new OAuth2\Storage\Mongo($mongodb);
+    return $storage;
+});
+App::singleton('oauth2', function() {
+
+    //$config = $this->app->make('config');
+//    $connectionString = 'mongodb://'.''.':'.''.'@'.'127.0.0.1'.':'.'27017'.'/'.'mongolid';
+//    $connection = new Zizaco\Mongolid\MongoDbConnector;
+//    $mongo = $connection->getConnection($connectionString);
+
+    //dd($mongo);die();
+
+
+    $storage = App::make('storage');
+    $storage->setClientDetails("TestClient", "TestSecret");
+
+
     $server = new OAuth2\Server($storage);
 
+
     $server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
-    $server->addGrantType(new OAuth2\GrantType\UserCredentials($storage,array('username' => 'sakib', 'password' => '123456')));
+    $server->addGrantType(new OAuth2\GrantType\UserCredentials($storage));
     $server->addGrantType(new OAuth2\GrantType\AuthorizationCode($storage));
 
     return $server;
@@ -48,7 +57,7 @@ App::singleton('oauth2', function() {
 Route::group(array('prefix' => 'api/v1'), function() {
 
     Route::resource('user', 'UserController');
-
+    Route::post('user/test', 'UserController@test');
     // custom method for user login and registration
     Route::post('user/login', 'UserController@login');
 
@@ -67,7 +76,7 @@ Route::group(array('prefix' => 'api/v1'), function() {
     Route::get('auth/islogged', 'UserController@isLogged');
 
     Route::post('oauth/token', function() {
-        
+
         $bridgedRequest = OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
         $bridgedResponse = new OAuth2\HttpFoundationBridge\Response();
 
@@ -80,9 +89,12 @@ Route::group(array('prefix' => 'api/v1'), function() {
         $bridgedRequest = OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
         $bridgedResponse = new OAuth2\HttpFoundationBridge\Response();
 
+
         if (App::make('oauth2')->verifyResourceRequest($bridgedRequest, $bridgedResponse)) {
 
             $token = App::make('oauth2')->getAccessTokenData($bridgedRequest);
+            var_dump($token);
+            die();
 
             return Response::json(array(
                         'private' => 'stuff',

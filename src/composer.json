@@ -7,7 +7,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"zizaco/mongolid": "dev-master",
-                "zizaco/mongolid-laravel": "dev-master",
+    "zizaco/mongolid-laravel": "dev-master",
 		"bshaffer/oauth2-server-php": "~1.6",
 		"bshaffer/oauth2-server-httpfoundation-bridge": "~1.1"
 
