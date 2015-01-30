@@ -47,7 +47,29 @@ class ProductController extends BaseController {
    */
   public function show($id) {
 
-    return $data;
+      $data = array();
+
+      $product = Product::find($id);
+
+
+      if (isset($product->title)) {
+
+          $data = array(
+              'response'    => "OK",
+              'message'     => $product,
+              'code'        => 200,
+          );
+
+      } else {
+
+          $data = array(
+              'response'  => 'ERROR',
+              'message'   => 'product not found.',
+              'code'      => 400,
+          );
+      }
+
+      return $data;
   }
 
   /**
