@@ -50,8 +50,8 @@ app.controller('ProfileCtrl', ['$scope', '$location', 'authService', 'sessionSer
 app.controller('ProfileEditCtrl', ['$scope', '$location', 'authService', 'sessionService', 'Data', function ($scope, $location, authService, sessionService, Data) {
         if (authService.isLogged()) {
             Data.get('user/' + sessionService.get('user_id') + '/edit').then(function (results) {
-                if (results.response == "OK") {
-                    $scope.profile.country = 4;
+                if (results.response == "OK") {                    
+//                    $scope.profile.country = "Afghanistan";
                     $scope.profile = results;
                     console.log($scope.profile);
                 } else {

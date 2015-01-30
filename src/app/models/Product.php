@@ -8,5 +8,14 @@ class Product extends MongoLid {
      * @var string
      */
     protected $collection = 'products';
+    
+      /**
+     * Validation rules.
+     *
+     * @var array
+     */
+   public static $rules = array(
+      
+  );
 }
 
