@@ -1,6 +1,10 @@
 'user strict';
 app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
+                .when('/', {
+                    templateUrl: 'template/home.html',
+                    controller: 'HomeCtrl'
+                })
                 .when('/profile', {
                     templateUrl: 'template/profile.html',
                     controller: 'ProfileCtrl'

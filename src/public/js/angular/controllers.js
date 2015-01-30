@@ -98,10 +98,12 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $routeParams, $locat
 app.controller('CategoryCtrl', ['$scope', '$rootScope', '$routeParams', '$http', 'Data', function ($scope, $rootScope, $routeParams, $http, Data) {
         Data.get('products/category/' + $routeParams.cat_name + '/sub/' + $routeParams.sub_name).then(function (results) {
             $scope.products = results;
+            console.log($scope.products);
 
         });
 
     }]);
+
 app.controller('RatingDemoCtrl', ['$scope', function ($scope) {
         $scope.rate = 3;
         $scope.max = 5;
@@ -175,4 +177,13 @@ app.controller('UploadCtrl', ['$scope', 'FileUploader', function ($scope, FileUp
         console.info('uploader', uploader);
 
     }]);
- 
+app.controller('CategoryShowCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+    Data.get('category').then(function(results){
+        $scope.categories = results;        
+    });
+
+});
+app.controller('HomeCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+   
+
+});

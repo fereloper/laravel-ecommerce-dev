@@ -186,7 +186,7 @@ class ProductController extends BaseController {
 
     public function getProductBySubCategory($category_id, $sub_category_id) {
         $product = Product::where(['category' => $category_id, 'sub_category' => $sub_category_id]);
-        return $product;
+        return json_encode($product->toArray());
     }
     public function getProductBySCategory($category_id) {
         $product = Product::where(['category' => $category_id]);
@@ -203,8 +203,8 @@ class ProductController extends BaseController {
         }
     }
 
-    public function getCategory() {
-        return Category::all();
+    public function getCategory() {      
+        return json_encode(Category::all()->toArray());
     }
 
 }

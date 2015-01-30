@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"ng-app="ecommerceApp" >
+<html lang="en" ng-app="ecommerceApp" >
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
   </head><!--/head-->
-
+ ng-repeat="category in categories"
   <body ng-cloak="">
     <header id="header"><!--header-->
       <div class="header_top"><!--header_top-->
