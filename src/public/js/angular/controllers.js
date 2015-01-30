@@ -103,8 +103,8 @@ app.controller('CategoryCtrl', ['$scope', '$rootScope', '$routeParams', '$http',
 
     }]);
 app.controller('RatingDemoCtrl', ['$scope', function ($scope) {
-        $scope.rate = 7;
-        $scope.max = 10;
+        $scope.rate = 3;
+        $scope.max = 5;
         $scope.isReadonly = false;
 
         $scope.hoveringOver = function (value) {
