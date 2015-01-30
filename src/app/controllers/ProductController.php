@@ -2,15 +2,15 @@
 
 class ProductController extends BaseController {
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index() {
+    /**
+    * Display a listing of the resource.
+    *
+    * @return Response
+    */
+    public function index() {
 
-    return Product::all();
-  }
+        return Product::all();
+    }
 
   /**
    * Show the form for creating a new resource.
@@ -23,75 +23,134 @@ class ProductController extends BaseController {
     return array('message' => 'Form show.');
   }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store() {
-//    $validator = Validator::make(Input::all(), Product::$rules);
-    $data = Input::all();
-    $product = new Product;
-    foreach ($data as $index => $value) {
-      $product[$index] = $value;
-    }
-    $product = (object) $product;
-    $product->save();
+    /**
+    * Store a newly created resource in storage.
+    *
+    * @return Response
+    */
+    public function store() {
+        //$validator = Validator::make(Input::all(), Product::$rules);
+
+        $post       = Input::all();
+        $product    = new Product;
+        $data       = array();
+
+        foreach ($post as $index => $value) {
+          $product[$index] = $value;
+        }
+
+        if ($product->save()) {
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'Product has been created successfully.',
+                'code'      => 200,
+            );
+        } else {
+            $data = array(
+                'response'  => 'ERROR',
+                'message'   => 'Error message.',
+                'code'      => 400,
+            );
+        }
+
+        $product = (object) $product;
+
+        return $data;
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id) {
+    /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+    public function show($id) {
 
-      $data = array();
+        $data = array();
 
-      $product = Product::find($id);
+        $product = Product::find($id);
 
+        if ($product->price != "") {
 
-      if (isset($product->title)) {
+            $data               = $product;
+            $data['response']   = "OK";
+            $data['code']       = 200;
 
-          $data = array(
-              'response'    => "OK",
-              'message'     => $product,
-              'code'        => 200,
-          );
-
-      } else {
+        } else {
 
           $data = array(
               'response'  => 'ERROR',
               'message'   => 'product not found.',
               'code'      => 400,
           );
-      }
+        }
 
-      return $data;
-  }
+        return $data;
+    }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id) {
-    return $data;
-  }
+    /**
+    * Show the form for editing the specified resource.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+    public function edit($id) {
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id) {
+        $data = array();
 
-    return $data;
-  }
+        $product = Product::find($id);
+
+        if ($product->price != "") {
+
+            $data               = $product;
+            $data['response']   = "OK";
+            $data['code']       = 200;
+
+        } else {
+
+            $data = array(
+                'response'  => 'ERROR',
+                'message'   => 'product not found.',
+                'code'      => 400,
+            );
+        }
+    }
+
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+    public function update($id) {
+
+        $product = Product::first($id);
+
+        if ( isset($product->title) ) {
+
+            $product->title         = Input::get('title');
+            $product->description   = Input::get('description');
+            $product->price         = Input::get('price');
+            $product->category      = Input::get('category');
+            $product->subcategory   = Input::get('subcategory');
+
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'product successfully updated.',
+                'code'      => 200,
+            );
+
+        } else {
+
+            $data = array(
+                'response'  => 'ERROR',
+                'message'   => 'product not found',
+                'code'      => 400,
+            );
+        }
+        
+        return $data;
+    }
 
   /**
    * Remove the specified resource from storage.
