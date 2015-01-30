@@ -46,12 +46,14 @@ class OrderController extends \BaseController {
                     $row_total = $subtotal - $discount;
 
                     $product_info[] = array(
-                        'pdt_name' => $product->name,
-                        'pdt_price' => $product->price,
-                        'pdt_qty'   => Input::get('qty'),
-                        'pdt_subtotal'   => $subtotal,
-                        'pdt_discount'   => $discount,
-                        'row_total'   => $row_total
+                        'pdt_id'        => $value['pdt_id'],
+                        'pdt_name'      => $product->name,
+                        'pdt_price'     => $product->price,
+                        'seller_id'     => $product->seller_id,
+                        'pdt_qty'       => Input::get('qty'),
+                        'pdt_subtotal'  => $subtotal,
+                        'pdt_discount'  => $discount,
+                        'row_total'     => $row_total
                     );
                     
                     $grand_total = $grand_total + $row_total;
@@ -59,6 +61,7 @@ class OrderController extends \BaseController {
 
                 $order->_id = getNextSequence("orderid");
                 $order->status = "Pending";
+                $order->buyer_id = Input::get('user_id');
                 $order->billing_address = Input::get('billing_address');
                 $order->shipping_address = Input::get('shipping_address');
                 $order->payment_status = "Pending";
@@ -158,5 +161,40 @@ class OrderController extends \BaseController {
             return $currentCounter;
          }
 
-
+         /*
+          * show order list for both buyer and seller
+          */
+         public function showUserOrder(){
+             $data = array();
+             $user_type = Input::get('user_type');
+             $user_id = Input::get('user_id');
+             
+             if($user_type == "Seller"){
+                 $order_data = Order::where(['order_items.seller_id'=>$user_id]);
+                 $data = $order_data;
+             }else{
+                 $order_data = Order::where(['buyer_id'=>$user_id]);
+                 $data = $order_data;
+             }
+             $data['code']       = 200;
+             $data['response']   = 'OK';
+             
+             return $data;
+         }
+         
+         public function changeStatus(){
+             $data = array();
+             $status = Input::get('user_type');
+             $order_id = Input::get('order_id');
+             
+             $order_data = Order::first([$order_id]);
+             
+             $order_data->status = $status;
+             
+             $data['code']       = 200;
+             $data['message']    = 'Product'.$status.'Successfully';
+             $data['response']   = 'OK';
+             
+             return $data;
+         }
 }

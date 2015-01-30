@@ -103,46 +103,15 @@ class ProductController extends BaseController {
     return $data;
   }
 
-  public function getProductByCategory($category_id, $sub_category_id) {
-    $products = array(
-      '1' => array(
-        'title' => "Testing data",
-        'price' => 100,
-        'special_price' => 90,
-        'rating' => 3.3
-      ), '2' => array(
-        'title' => "Testing data",
-        'price' => 100,
-        'special_price' => 90,
-        'rating' => 3.3
-      ),
-      '3' => array(
-        'title' => "Testing data",
-        'price' => 100,
-        'special_price' => 90,
-        'rating' => 3.3
-      ),
-      '4' => array(
-        'title' => "Testing data",
-        'price' => 100,
-        'special_price' => 90,
-        'rating' => 3.3
-      )
-    );
-    return $products;
+  public function getProductBySubCategory($category_id, $sub_category_id) {
+    $product = Product::where(['category' => $category_id, 'sub_category' => $sub_category_id]);
+    return $product;
   }
-
-  public function getProductById($product_id) {
-    return array(
-      'id' => 1,
-      'name' => "4 stroke bike",
-      'price' => 20000,
-      'category_id' => 2,
-      'sub_category_id' => 1,
-      'special_price' => 2000
-    );
+  public function getProductBySCategory($category_id) {
+    $product = Product::where(['category' => $category_id]);
+    return $product;
   }
-
+  
   public function upload() {
 
     if (Input::file('file')->move(__DIR__ . '/../storage/catalog/product/', Input::file('file')->getClientOriginalName())) {
@@ -151,6 +120,10 @@ class ProductController extends BaseController {
     else {
       return false;
     }
+  }
+
+  public function getCategory() {
+    return Category::all();
   }
 
 }

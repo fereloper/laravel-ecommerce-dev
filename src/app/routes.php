@@ -79,6 +79,8 @@ Route::group(array('prefix' => 'api/v1'), function() {
      * Order Controller sector
      */
     Route::resource('order', 'OrderController');
+    Route::post('order/show-order', 'OrderController@showUserOrder');
+    Route::post('order/change-status', 'OrderController@changeStatus');
     
     Route::post('oauth/token', function() {
 
@@ -121,12 +123,13 @@ Route::group(array('prefix' => 'api/v1'), function() {
   /*
    * Category
    */
-  Route::get('category','Product');
+  Route::get('category','ProductController@getCategory');
     
  /**
   * Product listing routes 
   */
-     Route::get('products/category/{category_id}/sub-category/{sub_category_id}', 'ProductController@getProductByCategory');
+  Route::get('products/category/{category_id}/sub/{sub_category_id}', 'ProductController@getProductBySubCategory');
+  Route::get('products/category/{category_id}', 'ProductController@getProductByCategory');
 //     Route::get('product/{product_id}/{product_name?}', 'ProductController@getProductById');
   //Product update api (Image upload)
      Route::post('product/upload','ProductController@upload');
