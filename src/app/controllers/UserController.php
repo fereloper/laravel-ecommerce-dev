@@ -195,12 +195,20 @@ class UserController extends \BaseController {
 
         $user = User::find($id);
 
+        // Get location data
+        $location = $this->_location();
+
 
         if (isset($user->email)) {
 
             $data               = $user;
+
+            $data['cities']     = $location['city'];
+            $data['countries']  = $location['country'];
             $data['code']       = 200;
             $data['response']   = 'OK';
+
+
 
         } else {
 
@@ -342,12 +350,13 @@ class UserController extends \BaseController {
         $users = array('email' => Input::get('email'), 'password' => Input::get('password'));
         $data = array();
 
-        $user   = User::first(array('email' => $users['email']));
+        $user       = User::first(array('email' => $users['email']));
+
 
         if ($user->status == 1 ) {
 
             if (Auth::attempt($users)) {
-                //$user = User::first(array('email' => $users['email']));
+
                 $person = array(
                     'name'      => $user->name,
                     'email'     => $user->email,
@@ -538,21 +547,41 @@ class UserController extends \BaseController {
 
     public function test() {
         // configure your available scopes
-$defaultScope = 'basic';
-$supportedScopes = array(
-  'basic',
-  'postonwall',
-  'accessphonenumber'
-);
-$memory = new OAuth2\Storage\Memory(array(
-  'default_scope' => $defaultScope,
-  'supported_scopes' => $supportedScopes
-));
-$scopeUtil = new OAuth2\Scope($memory);
+        $defaultScope = 'basic';
+        $supportedScopes = array(
+          'basic',
+          'postonwall',
+          'accessphonenumber'
+        );
 
- App::make('oauth2')->setScopeUtil($scopeUtil);
+        $memory = new OAuth2\Storage\Memory(array(
+          'default_scope' => $defaultScope,
+          'supported_scopes' => $supportedScopes
+        ));
+
+        $scopeUtil = new OAuth2\Scope($memory);
+
+         App::make('oauth2')->setScopeUtil($scopeUtil);
          App::make('storage')->setUser("a@gmail.com", "123654");
 
+    }
+
+    private function _location() {
+
+        // data pupulate for city and country
+        $citys      = City::all();
+        $countries  = Country::all();
+        $data       = array();
+
+        foreach( $citys as $name ) {
+            $data['city'][] = $name->city;
+        }
+
+        foreach( $countries as $name ) {
+            $data['country'][] = $name->country;
+        }
+
+        return $data;
     }
 
 }
