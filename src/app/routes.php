@@ -116,5 +116,6 @@ Route::group(array('prefix' => 'api/v1'), function() {
      Route::get('product/{product_id}/{product_name?}', 'ProductController@getProductById');
   //Product update api (Image upload)
      Route::post('product/upload','ProductController@upload');
+     Route::get('create-db','LocationController@createDB');
     
 });

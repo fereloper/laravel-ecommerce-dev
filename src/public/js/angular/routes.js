@@ -18,7 +18,7 @@ app.config(['$routeProvider', function ($routeProvider) {
                 .when('/user/edit', {
                     title: "Profile Edit",
                     templateUrl: 'template/profile_edit.html',
-                    controller: 'ProfileCtrl'
+                    controller: 'ProfileEditCtrl'
                 })
                 .when('/user/verify/:token/:id', {
                     title: "Verify your account",

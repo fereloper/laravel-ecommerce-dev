@@ -43,10 +43,31 @@ app.controller('ProfileCtrl', ['$scope', '$location', 'authService', 'sessionSer
                 $location.path('user');
             }
         };
+
+
+    }]);
+
+app.controller('ProfileEditCtrl', ['$scope', '$location', 'authService', 'sessionService', 'Data', function ($scope, $location, authService, sessionService, Data) {
+        if (authService.isLogged()) {
+            Data.get('user/' + sessionService.get('user_id') + '/edit').then(function (results) {
+                if (results.response == "OK") {
+                    $scope.profile.country = 4;
+                    $scope.profile = results;
+                    console.log($scope.profile);
+                } else {
+
+                }
+            });
+        } else {
+            $location.path('user');
+        }
+
+        $scope.countryChanged = function () {
+            $scope.cityItems = $scope.profile.country.cities;
+        }
         $scope.update = function (user) {
-            if (authService.isLogged()) {
+            if (authService.isLogged()) {            
                 Data.put('user/' + sessionService.get('user_id'), user).then(function (results) {
-                    console.log(results);
                     if (results.response == "OK") {
                         $location.path('profile');
                     }
@@ -54,7 +75,9 @@ app.controller('ProfileCtrl', ['$scope', '$location', 'authService', 'sessionSer
             } else {
                 $location.path('user');
             }
-        }
+        };
+
+
     }]);
 
 app.controller('verifyCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {

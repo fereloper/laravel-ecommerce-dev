@@ -194,6 +194,7 @@ class UserController extends \BaseController {
         $data = array();
 
         $user = User::find($id);
+//        $user = User::find($id);
 
         // Get location data
         $location = $this->_location();
@@ -202,9 +203,8 @@ class UserController extends \BaseController {
         if (isset($user->email)) {
 
             $data               = $user;
-
-            $data['cities']     = $location['city'];
-            $data['countries']  = $location['country'];
+            $data['location']  =  $location;
+//            $data  =  Country::find(1);
             $data['code']       = 200;
             $data['response']   = 'OK';
 
@@ -234,10 +234,11 @@ class UserController extends \BaseController {
 
         $user = User::find($id);
 
-
+        $location = $this->_location();
         if (isset($user->email)) {
 
             $data               = $user;
+            $data['location']  =  $location;
             $data['code']       = 200;
             $data['response']   = 'OK';
 
@@ -292,6 +293,7 @@ class UserController extends \BaseController {
             $user->mobile       = Input::get('mobile');
             $user->city         = Input::get('city');
             $user->country      = Input::get('country');
+            $user->country      =   $user->country['name'];
             $user->address      = Input::get('address');
 
             $user->save(true);
@@ -566,22 +568,38 @@ class UserController extends \BaseController {
 
     }
 
-    private function _location() {
-
-        // data pupulate for city and country
-        $citys      = City::all();
+//    private function _location() {
+//
+//        // data pupulate for city and country
+//        $citys      = City::all();
+//        $countries  = Country::all();
+//        $data       = array();
+//
+//        foreach( $citys as $name ) {
+//            $data['city'][] = $name->city;
+//        }
+//
+//        foreach( $countries as $name ) {
+//            $data['country'][] = $name->country;
+//        }
+//
+//        return $data;
+//    }
+      private function _location() {
         $countries  = Country::all();
-        $data       = array();
-
-        foreach( $citys as $name ) {
-            $data['city'][] = $name->city;
-        }
+        $finaldata       = array();
 
         foreach( $countries as $name ) {
-            $data['country'][] = $name->country;
+          $data = array();
+          $data['name'] = $name->country;
+          $dat['cities'] = array();
+          foreach( $name->cities as $city)
+            $data['cities'][] = $city['name'];
+          $finaldata[] = $data;
         }
 
-        return $data;
+        return $finaldata;
     }
+    
 
 }
