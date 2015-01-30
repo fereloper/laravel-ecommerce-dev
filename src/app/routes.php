@@ -31,15 +31,7 @@ App::singleton('storage',function(){
     return $storage;
 });
 App::singleton('oauth2', function() {
-
-    //$config = $this->app->make('config');
-//    $connectionString = 'mongodb://'.''.':'.''.'@'.'127.0.0.1'.':'.'27017'.'/'.'mongolid';
-//    $connection = new Zizaco\Mongolid\MongoDbConnector;
-//    $mongo = $connection->getConnection($connectionString);
-
-    //dd($mongo);die();
-
-
+  
     $storage = App::make('storage');
     $storage->setClientDetails("TestClient", "TestSecret");
 
@@ -108,4 +100,15 @@ Route::group(array('prefix' => 'api/v1'), function() {
                             ), $bridgedResponse->getStatusCode());
         }
     });
+    
+ /**
+  * Product listing routes 
+  */
+     Route::get('products/category/{category_id}/sub-category/{sub_category_id}', 'ProductController@getProductByCategory');
+     Route::get('product/{product_id}/{product_name?}', 'ProductController@getProductById');
+  //Product update api (Image upload)
+     Route::post('product/upload',function(){
+       return Input::file('file')->move(__DIR__.'/storage/catalog/product/',Input::file('file')->getClientOriginalName());
+     });
+    
 });

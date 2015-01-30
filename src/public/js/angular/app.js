@@ -1,6 +1,6 @@
 'user strict';
 
-var app = angular.module('ecommerceApp', ['ngRoute']);
+var app = angular.module('ecommerceApp', ['angularFileUpload','ngRoute']);
 
 
 app.directive('focus', function() {
