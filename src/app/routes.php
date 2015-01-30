@@ -119,7 +119,9 @@ Route::group(array('prefix' => 'api/v1'), function() {
    * Product CRUD
    */
   Route::resource('product','ProductController');
-  
+    Route::post('product/product-review', 'ProductController@productReview');
+    Route::post('product/user-review', 'ProductController@userReview');
+
   /*
    * Category
    */

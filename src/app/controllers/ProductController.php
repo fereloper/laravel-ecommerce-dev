@@ -134,6 +134,8 @@ class ProductController extends BaseController {
             $product->category      = Input::get('category');
             $product->subcategory   = Input::get('subcategory');
 
+            $product->save(true);
+
             $data = array(
                 'response'  => 'OK',
                 'message'   => 'product successfully updated.',
@@ -205,6 +207,115 @@ class ProductController extends BaseController {
 
     public function getCategory() {
         return Category::all();
+    }
+
+    /**
+     *
+     * Add revew from
+     */
+    public function productReview(){
+
+        $data = array();
+
+        $product_review = ProductReview::first(['product_id' => Input::get('product_id')]);
+
+        if ( isset($product_review->product_title) ) {
+
+            $review    = array(
+                'comment'   => Input::get('comment'),
+                'rating'    => Input::get('rating'),
+                'user_id'   => Input::get('user_id'),
+            );
+
+            $product_review->embed( 'review', $review );
+
+            $product_review->save(true);
+
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'review successfully added in product.',
+                'code'      => 200,
+            );
+
+        } else {
+
+            $product_review = new ProductReview;
+            $product_review->product_id     = Input::get('product_id');
+            $product_review->product_title  = Input::get('product_title');
+
+            $review    = array(
+                'comment'   => Input::get('comment'),
+                'rating'    => Input::get('rating'),
+                'user_id'   => Input::get('user_id'),
+            );
+
+            $product_review->embed( 'review', $review );
+
+            $product_review->save();
+
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'new review successfully added.',
+                'code'      => 200,
+            );
+
+        }
+
+        return $data;
+    }
+
+
+    /**
+     *
+     * Add revew from
+     */
+    public function userReview(){
+
+        $data = array();
+
+        $user_review = UserReview::first(['user_id' => Input::get('user_id')]);
+
+        if ( isset($user_review->user_name) ) {
+
+            $review    = array(
+                'comment'   => Input::get('user_comment'),
+                'rating'    => Input::get('user_rating'),
+            );
+
+            $user_review->embed( 'review', $review );
+
+            $user_review->save(true);
+
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'review successfully added in user.',
+                'code'      => 200,
+            );
+
+        } else {
+
+            $user_review = new UserReview;
+            $user_review->user_id   = Input::get('user_id');
+            $user_review->user_name = Input::get('user_name');
+
+            $review    = array(
+                'comment'   => Input::get('user_comment'),
+                'rating'    => Input::get('user_rating'),
+            );
+
+            $user_review->embed( 'review', $review );
+
+            $user_review->save();
+
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'new review successfully added.',
+                'code'      => 200,
+            );
+
+        }
+
+        return $data;
     }
 
 }
