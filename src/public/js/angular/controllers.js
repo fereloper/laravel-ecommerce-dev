@@ -23,6 +23,7 @@ app.controller('ProfileCtrl', ['$scope', '$location', 'authService', 'sessionSer
             Data.get('user/' + sessionService.get('user_id')).then(function (results) {
                 if (results.response == "OK") {
                     $scope.profile = results;
+                    console.log($scope.profile);
                 } else {
 
                 }
