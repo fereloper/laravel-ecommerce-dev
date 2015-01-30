@@ -126,6 +126,8 @@ Route::group(array('prefix' => 'api/v1'), function() {
    * Category
    */
   Route::get('category','ProductController@getCategory');
+  Route::get('brand','ProductController@getBrands');
+  Route::post('brand/submit','ProductController@saveBrands');
     
  /**
   * Product listing routes 
