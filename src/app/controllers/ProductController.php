@@ -206,5 +206,17 @@ class ProductController extends BaseController {
     public function getCategory() {
         return Category::all();
     }
+    
+    public function getBrands() {
+        return Brand::all();
+    }
+    
+    public function saveBrands() {
+        $brands = new Brand;
+        $brands->name = Input::get('name');
+        $brands->save();
+        
+        return "ok";
+    }
 
 }
