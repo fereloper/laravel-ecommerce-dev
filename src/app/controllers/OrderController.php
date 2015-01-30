@@ -150,9 +150,9 @@ class OrderController extends \BaseController {
         
         public function getNextSequence($name) {
             $value = Counter::first($name);
-            $currentCounter = $value->counter + 1;
+            $currentCounter = $value->sec + 1;
             
-            $value->counter = $currentCounter;
+            $value->sec = $currentCounter;
             $value->save(true);
             
             return $currentCounter;
