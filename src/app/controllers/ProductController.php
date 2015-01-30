@@ -281,5 +281,29 @@ class ProductController extends BaseController {
 
         return $data;
     }
+    
+    public function getFeaturedProduct() {
+        
+        $data = array();
+        
+        $products = Product::where(['featured' => '1']);
+        
+        if ($products) {
+            
+            $data['products']   = $products;
+            $data['response']   = 'OK';
+            $data['message']    = 'request success.';
+            $data['code']       = 200;
+        } else {
+            
+            $data = array(
+                'response'  => 'ERROR',
+                'message'   => 'Featured products not found.',
+                'code'      => 400,
+            );
+        }
+        
+        return $data;
+    }
 
 }

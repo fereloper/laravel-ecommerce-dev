@@ -138,5 +138,7 @@ Route::group(array('prefix' => 'api/v1'), function() {
   //Product update api (Image upload)
      Route::post('product/upload','ProductController@upload');
      Route::get('create-db','LocationController@createDB');
+     
+     Route::get('product/featured-product','ProductController@getFeaturedProduct');
     
 });
