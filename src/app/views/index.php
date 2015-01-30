@@ -219,6 +219,7 @@
   <script type="text/javascript" src="js/lib/angular/angular.min.js"></script>
   <script type="text/javascript" src="js/lib/angular/angular-resource.min.js"></script>
   <script type="text/javascript" src="js/lib/angular/angular-route.min.js"></script>
+  <script type="text/javascript" src="js/angular/angular-file-upload.min.js"></script>
 
   <script type="text/javascript" src="js/angular/app.js"></script>
   <script type="text/javascript" src="js/angular/routes.js"></script>
