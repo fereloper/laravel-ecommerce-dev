@@ -30,6 +30,11 @@ app.config(['$routeProvider', function ($routeProvider) {
                     templateUrl: 'template/product/produt-view.html',
                     controller: 'UploadCtrl'
                 })
+                .when('/category/:cat_name/sub/:sub_name', {
+                    title: "Product Listing",
+                    templateUrl: 'template/product/produt-list.html',
+                    controller: 'CategoryCtrl'
+                })
                 .otherwise({
                     redirectTo: 'user'
                 });

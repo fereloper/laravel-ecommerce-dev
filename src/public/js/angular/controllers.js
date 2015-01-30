@@ -95,6 +95,12 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $routeParams, $locat
     }
 
 });
+app.controller('CategoryCtrl', function ($scope, $rootScope, $routeParams, $location, $http) {    
+    Data.get('api/v1/category/' + $routeParams.cat_name + '/sub/' + $routeParams.cat_name).then(function (results) {
+        console.log(results);
+    });
+
+});
 //Image uplaod controller
 app.controller('UploadCtrl', ['$scope', 'FileUploader', function ($scope, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
