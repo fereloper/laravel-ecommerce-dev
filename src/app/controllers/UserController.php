@@ -49,11 +49,10 @@ class UserController extends \BaseController {
             } else {
 
                 $user   = new User;
-                $value  = Input::get('name').Input::get('email'); //.Input::get('last_name')
+                $value  = Input::get('name').Input::get('email');
                 $token  = $this->createToken($value);
 
-                $user->first_name           = Input::get('name');
-                //$user->last_name            = Input::get('last_name');
+                $user->name                 = Input::get('name');
                 $user->email                = Input::get('email');
                 $user->password             = Hash::make(Input::get('password'));
                 $user->phone                = Input::get('phone');
@@ -72,10 +71,11 @@ class UserController extends \BaseController {
                     'id'             => $id,
                     'link'           => 'http://codewarriors.me/#/user/verify/'.$token.'/'.$id
                 );
+
                 try{
-                Mail::send('emails.auth.verify', array('name'=>Input::get('name'), 'values' =>$params), function($message){
-                    $message->to(Input::get('email'), Input::get('name'))->subject('[Ergo Warriors] Please Verify Your Email');
-                });
+                    Mail::send('emails.auth.verify', array('name'=>Input::get('name'), 'values' =>$params), function($message){
+                        $message->to(Input::get('email'), Input::get('name'))->subject('[Ergo Warriors] Please Verify Your Email');
+                    });
                 }catch(Exception $e){
 
                 }

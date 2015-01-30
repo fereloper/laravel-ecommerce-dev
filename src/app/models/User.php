@@ -19,11 +19,11 @@ class User extends MongoLid implements UserInterface, RemindableInterface {
      */
     protected $hidden = array('password');
     public static $rules = array(
-        'name' => 'required|min:2',
-        //'last_name'=>'required|min:2',
-        'email' => 'required|email',
-        'password' => 'required|alpha_num|between:6,12|confirmed',
-        'password_confirmation' => 'required|alpha_num|between:6,12'
+        'name'                  => 'required|min:2',
+        'email'                 => 'required|email',
+        'password'              => 'required|alpha_num|between:6,12|confirmed',
+        'password_confirmation' => 'required|alpha_num|between:6,12',
+        'mobile'                => 'required|numeric|between:10,11',
     );
 
     /**
