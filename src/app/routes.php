@@ -79,6 +79,8 @@ Route::group(array('prefix' => 'api/v1'), function() {
      * Order Controller sector
      */
     Route::resource('order', 'OrderController');
+    Route::post('order/show-order', 'OrderController@showUserOrder');
+    Route::post('order/change-status', 'OrderController@changeStatus');
     
     Route::post('oauth/token', function() {
 
