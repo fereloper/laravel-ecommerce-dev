@@ -74,7 +74,12 @@ Route::group(array('prefix' => 'api/v1'), function() {
     Route::post('cart/add-to-wishlist', 'CartController@addToWishlist');
     Route::get('cart/wishlist', 'CartController@showWishlistProducts');
     Route::post('cart/delete-wishlist', 'CartController@deleteWishlistProduct');
-
+    
+    /*
+     * Order Controller sector
+     */
+    Route::resource('order', 'OrderController');
+    
     Route::post('oauth/token', function() {
 
         $bridgedRequest = OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
