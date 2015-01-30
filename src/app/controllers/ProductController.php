@@ -134,6 +134,8 @@ class ProductController extends BaseController {
             $product->category      = Input::get('category');
             $product->subcategory   = Input::get('subcategory');
 
+            $product->save(true);
+
             $data = array(
                 'response'  => 'OK',
                 'message'   => 'product successfully updated.',
@@ -219,6 +221,61 @@ class ProductController extends BaseController {
         $brands->save();
         
         return "ok";
+    }
+
+    /**
+     *
+     * Add revew from
+     */
+    public function productReview(){
+
+        $data = array();
+
+        $product_review = ProductReview::first(['product_id' => Input::get('product_id')]);
+
+        if ( isset($product_review->product_title) ) {
+
+            $review    = array(
+                'comment'   => Input::get('comment'),
+                'rating'    => Input::get('rating'),
+                'user_id'   => Input::get('user_id'),
+            );
+
+            $product_review->embed( 'review', $review );
+
+            $product_review->save(true);
+
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'review successfully added in product.',
+                'code'      => 200,
+            );
+
+        } else {
+
+            $product_review = new ProductReview;
+            $product_review->product_id     = Input::get('product_id');
+            $product_review->product_title  = Input::get('product_title');
+
+            $review    = array(
+                'comment'   => Input::get('comment'),
+                'rating'    => Input::get('rating'),
+                'user_id'   => Input::get('user_id'),
+            );
+
+            $product_review->embed( 'review', $review );
+
+            $product_review->save();
+
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'new review successfully added.',
+                'code'      => 200,
+            );
+
+        }
+
+        return $data;
     }
 
 }
