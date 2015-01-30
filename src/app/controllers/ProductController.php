@@ -70,10 +70,14 @@ class ProductController extends BaseController {
 
         $product = Product::find($id);
 
+        $product_review = ProductReview::find(['product_id' => $id]);
+
+
         if ( isset($product->title) ) {
 
             $data               = $product;
             $data['response']   = "OK";
+            $data['review']     = $product_review->review;
             $data['code']       = 200;
 
         } else {
@@ -133,6 +137,8 @@ class ProductController extends BaseController {
             $product->price         = Input::get('price');
             $product->category      = Input::get('category');
             $product->subcategory   = Input::get('subcategory');
+
+            $product->save(true);
 
             $data = array(
                 'response'  => 'OK',
@@ -205,6 +211,99 @@ class ProductController extends BaseController {
 
     public function getCategory() {      
         return json_encode(Category::all()->toArray());
+    }
+    
+    public function getBrands() {
+        $category = (int)Input::get('category_id');
+        return $brands = Brand::where(['category_id' => $category]);
+    }
+    
+    public function saveBrands() {
+        $brands = new Brand;
+        $brands->name = Input::get('name');
+        $brands->category_id = Input::get('category_id');
+        $brands->save();
+        
+        return "ok";
+    }
+
+    /**
+     *
+     * Add revew from
+     */
+    public function productReview(){
+
+        $data = array();
+
+        $product_review = ProductReview::first(['product_id' => Input::get('product_id')]);
+
+        if ( isset($product_review->product_title) ) {
+
+            $review    = array(
+                'comment'   => Input::get('comment'),
+                'rating'    => Input::get('rating'),
+                'user_id'   => Input::get('user_id'),
+            );
+
+            $product_review->embed( 'review', $review );
+
+            $product_review->save(true);
+
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'review successfully added in product.',
+                'code'      => 200,
+            );
+
+        } else {
+
+            $product_review = new ProductReview;
+            $product_review->product_id     = Input::get('product_id');
+            $product_review->product_title  = Input::get('product_title');
+
+            $review    = array(
+                'comment'   => Input::get('comment'),
+                'rating'    => Input::get('rating'),
+                'user_id'   => Input::get('user_id'),
+            );
+
+            $product_review->embed( 'review', $review );
+
+            $product_review->save();
+
+            $data = array(
+                'response'  => 'OK',
+                'message'   => 'new review successfully added.',
+                'code'      => 200,
+            );
+
+        }
+
+        return $data;
+    }
+    
+    public function getFeaturedProduct() {
+        
+        $data = array();
+        
+        $products = Product::where(['featured' => '1']);
+        
+        if ($products) {
+            
+            $data['products']   = $products;
+            $data['response']   = 'OK';
+            $data['message']    = 'request success.';
+            $data['code']       = 200;
+        } else {
+            
+            $data = array(
+                'response'  => 'ERROR',
+                'message'   => 'Featured products not found.',
+                'code'      => 400,
+            );
+        }
+        
+        return $data;
     }
 
 }

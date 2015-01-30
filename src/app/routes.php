@@ -119,11 +119,15 @@ Route::group(array('prefix' => 'api/v1'), function() {
    * Product CRUD
    */
   Route::resource('product','ProductController');
-  
+    Route::post('product/review', 'ProductController@productReview');
+    Route::post('user/review', 'UserController@userReview');
+
   /*
    * Category
    */
   Route::get('category','ProductController@getCategory');
+  Route::get('brand','ProductController@getBrands');
+  Route::post('brand/submit','ProductController@saveBrands');
     
  /**
   * Product listing routes 
@@ -134,5 +138,7 @@ Route::group(array('prefix' => 'api/v1'), function() {
   //Product update api (Image upload)
      Route::post('product/upload','ProductController@upload');
      Route::get('create-db','LocationController@createDB');
+     
+     Route::get('product/featured-product','ProductController@getFeaturedProduct');
     
 });
