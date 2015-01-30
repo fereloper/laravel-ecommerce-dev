@@ -50,7 +50,7 @@ app.controller('ProfileCtrl', ['$scope', '$location', 'authService', 'sessionSer
 app.controller('ProfileEditCtrl', ['$scope', '$location', 'authService', 'sessionService', 'Data', function ($scope, $location, authService, sessionService, Data) {
         if (authService.isLogged()) {
             Data.get('user/' + sessionService.get('user_id') + '/edit').then(function (results) {
-                if (results.response == "OK") {                    
+                if (results.response == "OK") {
 //                    $scope.profile.country = "Afghanistan";
                     $scope.profile = results;
                     console.log($scope.profile);
@@ -66,7 +66,7 @@ app.controller('ProfileEditCtrl', ['$scope', '$location', 'authService', 'sessio
             $scope.cityItems = $scope.profile.country.cities;
         }
         $scope.update = function (user) {
-            if (authService.isLogged()) {            
+            if (authService.isLogged()) {
                 Data.put('user/' + sessionService.get('user_id'), user).then(function (results) {
                     if (results.response == "OK") {
                         $location.path('profile');
@@ -95,12 +95,13 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $routeParams, $locat
     }
 
 });
-app.controller('CategoryCtrl', function ($scope, $rootScope, $routeParams, $location, $http) {    
-    Data.get('api/v1/category/' + $routeParams.cat_name + '/sub/' + $routeParams.cat_name).then(function (results) {
-        console.log(results);
+app.controller('CategoryCtrl',[ '$scope','$rootScope','$routeParams','$http','Data',function ($scope, $rootScope, $routeParams, $http, Data) {
+    Data.get('products/category/' + $routeParams.cat_name + '/sub/' + $routeParams.sub_name).then(function (results) {
+        $scope.products = results;
+
     });
 
-});
+}]);
 //Image uplaod controller
 app.controller('UploadCtrl', ['$scope', 'FileUploader', function ($scope, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
