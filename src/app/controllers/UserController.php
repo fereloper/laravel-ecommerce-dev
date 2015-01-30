@@ -55,7 +55,7 @@ class UserController extends \BaseController {
                 $user->name                 = Input::get('name');
                 $user->email                = Input::get('email');
                 $user->password             = Hash::make(Input::get('password'));
-                $user->phone                = Input::get('phone');
+                $user->mobile               = Input::get('mobile');
                 $user->city                 = Input::get('city');
                 $user->country              = Input::get('country');
                 $user->status_token         = $token;
@@ -258,13 +258,31 @@ class UserController extends \BaseController {
 
         if (isset($user->email)) {
 
-            $user->first_name   = Input::get('first_name');
-//            //$user->last_name    = Input::get('last_name');
-//            $user->email        = Input::get('email');
-//            $user->password     = Hash::make(Input::get('password'));
-//            $user->phone        = Input::get('phone');
-//            $user->city         = Input::get('city');
-//            $user->country      = Input::get('country');
+            $user->name         = Input::get('name');
+            $user->email        = Input::get('email');
+
+            if ( Input::get('old_password') && Input::get('new_password') !='' ) {
+
+                $check_user = array('email' => Input::get('email'), 'password' => Input::get('old_password'));
+
+
+                if (Auth::attempt($check_user)) {
+                    $user->password     = Hash::make(Input::get('new_password'));
+
+                    $data = array(
+                        'password'  => 'Password has been updated successfully.'
+                    );
+                } else {
+
+                    $data = array(
+                        'password'  => 'May be your entered wrong password.'
+                    );
+                }
+            }
+
+            $user->mobile       = Input::get('mobile');
+            $user->city         = Input::get('city');
+            $user->country      = Input::get('country');
 
             $user->save(true);
 
@@ -321,28 +339,43 @@ class UserController extends \BaseController {
     public function login() {
         $users = array('email' => Input::get('email'), 'password' => Input::get('password'));
         $data = array();
-        if (Auth::attempt($users)) {
-            $user = User::first(array('email' => $users['email']));
-            $person = array(
-                'name'      => $user->first_name,//." ".$user->last_name,
-                'email'     => $user->email,
-                'id'        => $user->_id,
-            );
 
-            $data = array(
-                'response'  => 'OK',
-                'message'   => $person,
-                'code'      => 200,
-            );
+        $user   = User::first(array('email' => $users['email']));
 
+        if ($user->status == 1 ) {
+
+            if (Auth::attempt($users)) {
+                //$user = User::first(array('email' => $users['email']));
+                $person = array(
+                    'name'      => $user->name,
+                    'email'     => $user->email,
+                    'id'        => $user->_id,
+                );
+
+                $data = array(
+                    'response'  => 'OK',
+                    'message'   => $person,
+                    'code'      => 200,
+                );
+
+            } else {
+
+                $data = array(
+                    'response'  => 'ERROR',
+                    'message'   => 'Your username/password combination was incorrect',
+                    'code'      => 400,
+                );
+            }
         } else {
 
             $data = array(
-                'response'  => 'ERROR',
-                'message'   => 'Your username/password combination was incorrect',
-                'code'      => 400,
+                'response'          => 'ERROR',
+                'message'           => 'You did not verify your account.',
+                'verification_link' => Request::server('HTTP_HOST').'/api/v1/auth/'.$user->status_token.'/verify/'.$user->_id,
+                'code'              => 400,
             );
         }
+
         return $data;
     }
 
