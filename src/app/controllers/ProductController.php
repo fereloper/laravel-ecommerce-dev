@@ -70,10 +70,14 @@ class ProductController extends BaseController {
 
         $product = Product::find($id);
 
+        $product_review = ProductReview::find(['product_id' => $id]);
+
+
         if ( isset($product->title) ) {
 
             $data               = $product;
             $data['response']   = "OK";
+            $data['review']     = $product_review->review;
             $data['code']       = 200;
 
         } else {
