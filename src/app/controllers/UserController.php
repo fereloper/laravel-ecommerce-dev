@@ -58,6 +58,7 @@ class UserController extends \BaseController {
                 $user->mobile               = Input::get('mobile');
                 $user->city                 = Input::get('city');
                 $user->country              = Input::get('country');
+                $user->address              = Input::get('address');
                 $user->status_token         = $token;
                 $user->token_expire_date    = Carbon::now()->addDay();
                 $user->status               = 0;
@@ -283,6 +284,7 @@ class UserController extends \BaseController {
             $user->mobile       = Input::get('mobile');
             $user->city         = Input::get('city');
             $user->country      = Input::get('country');
+            $user->address      = Input::get('address');
 
             $user->save(true);
 
