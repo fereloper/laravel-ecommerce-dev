@@ -1,6 +1,6 @@
 <?php
 
-class CountryController extends \BaseController {
+class LocationController extends \BaseController {
 
     /**
      * Display a listing of the resource.

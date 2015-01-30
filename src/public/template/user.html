@@ -21,12 +21,13 @@
   <div class="signup-form"><!--sign up form-->
     <h2>New User Signup!</h2>
     <form name="signupForm" role="form">
-      <input type="text" placeholder="Name" name="name" ng-model="signup.name" focus required>
+      <input type="text" placeholder="Full Name" name="name" ng-model="signup.name" focus required>
       <input type="email" placeholder="Email Address" name="email" ng-model="signup.email" >
       <small ng-show="signupForm.email.$error.email" class="help-inline">Email is not valid</small>
       <input type="password" placeholder="Password" name="password" ng-model="signup.password" required>
       <small class="errorMessage" data-ng-show="signupForm.password.$dirty && signupForm.password.$invalid"> Enter Password.</small>
       <input type="password" placeholder="Confirmed Password" name="password_confirmation" ng-model="signup.password_confirmation" password-match="signup.password" required>
+      <input type="text" placeholder="Mobile" name="mobile" ng-model="signup.mobile" required>
       <small class="errorMessage" data-ng-show="signupForm.password_confirmation.$dirty && signupForm.password_confirmation.$error.required"> Enter password again.</small>
 
       <small class="errorMessage" data-ng-show="signupForm.password_confirmation.$dirty && signupForm.password_confirmation.$error.passwordNoMatch && !signupForm.password_confirmation.$error.required"> Password do not match.</small>

@@ -59,9 +59,9 @@ Route::group(array('prefix' => 'api/v1'), function() {
 
     Route::post('auth/change-password', 'UserController@forgotPassword');
 
-    Route::post('city/get-city', 'CountryController@getCity');
+    Route::post('city/get-city', 'LocationController@getCity');
 
-    Route::get('country/get-country', 'CountryController@getCountry');
+    Route::get('country/get-country', 'LocationController@getCountry');
 
     Route::get('auth/logout', 'UserController@logout');
 

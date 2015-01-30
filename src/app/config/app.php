@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-                'Zizaco\MongolidLaravel\MongolidServiceProvider'
+                'Zizaco\MongolidLaravel\MongolidServiceProvider',
+                'Gloudemans\Shoppingcart\ShoppingcartServiceProvider'
 
 
 	),
@@ -191,8 +192,9 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 
-        'MongoLid'          => 'Zizaco\MongolidLaravel\MongoLid',
-        'Carbon'			=> 'Carbon\Carbon',
+                'MongoLid'          => 'Zizaco\MongolidLaravel\MongoLid',
+                'Carbon'			=> 'Carbon\Carbon',
+                'Cart'              => 'Gloudemans\Shoppingcart\Facades\Cart',
 
 	),
 
