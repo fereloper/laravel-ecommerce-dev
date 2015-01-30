@@ -214,12 +214,14 @@ class ProductController extends BaseController {
     }
     
     public function getBrands() {
-        return Brand::all();
+        $category = (int)Input::get('category_id');
+        return $brands = Brand::where(['category_id' => $category]);
     }
     
     public function saveBrands() {
         $brands = new Brand;
         $brands->name = Input::get('name');
+        $brands->category_id = Input::get('category_id');
         $brands->save();
         
         return "ok";
