@@ -35,6 +35,11 @@ app.config(['$routeProvider', function ($routeProvider) {
                     templateUrl: 'template/product/produt-list.html',
                     controller: 'CategoryCtrl'
                 })
+                .when('/rating', {
+                    title: "Product Listing",
+                    templateUrl: 'template/product/rating.html',
+                    controller: 'RatingDemoCtrl'
+                })
                 .otherwise({
                     redirectTo: 'user'
                 });

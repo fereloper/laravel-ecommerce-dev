@@ -222,6 +222,7 @@
   <script type="text/javascript" src="js/lib/angular/angular-resource.min.js"></script>
   <script type="text/javascript" src="js/lib/angular/angular-route.min.js"></script>
   <script type="text/javascript" src="js/lib/angular/angular-file-upload.js"></script>
+  <script type="text/javascript" src="js/lib/angular/ui-bootstrap-tpls-0.12.0.js"></script>
 
   <script type="text/javascript" src="js/angular/app.js"></script>
   <script type="text/javascript" src="js/angular/routes.js"></script>

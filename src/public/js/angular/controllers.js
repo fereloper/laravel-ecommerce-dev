@@ -95,13 +95,32 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $routeParams, $locat
     }
 
 });
-app.controller('CategoryCtrl',[ '$scope','$rootScope','$routeParams','$http','Data',function ($scope, $rootScope, $routeParams, $http, Data) {
-    Data.get('products/category/' + $routeParams.cat_name + '/sub/' + $routeParams.sub_name).then(function (results) {
-        $scope.products = results;
+app.controller('CategoryCtrl', ['$scope', '$rootScope', '$routeParams', '$http', 'Data', function ($scope, $rootScope, $routeParams, $http, Data) {
+        Data.get('products/category/' + $routeParams.cat_name + '/sub/' + $routeParams.sub_name).then(function (results) {
+            $scope.products = results;
 
-    });
+        });
 
-}]);
+    }]);
+app.controller('RatingDemoCtrl', ['$scope', function ($scope) {
+        $scope.rate = 7;
+        $scope.max = 10;
+        $scope.isReadonly = false;
+
+        $scope.hoveringOver = function (value) {
+            $scope.overStar = value;
+            $scope.percent = 100 * (value / $scope.max);
+        };
+
+        $scope.ratingStates = [
+            {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+            {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+            {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+            {stateOn: 'glyphicon-heart'},
+            {stateOff: 'glyphicon-off'}
+        ];
+
+    }]);
 //Image uplaod controller
 app.controller('UploadCtrl', ['$scope', 'FileUploader', function ($scope, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
