@@ -30,6 +30,8 @@ app.config(['$routeProvider', function ($routeProvider) {
                     templateUrl: 'template/product/produt-view.html',
                     controller: 'UploadCtrl'
                 })
-               
+                .otherwise({
+                    redirectTo: 'user'
+                });
     }]);
 

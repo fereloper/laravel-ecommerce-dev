@@ -57,7 +57,7 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="logo pull-left">
-                <a href="index.html"><div class="companyinfo">
+                <a href="/"><div class="companyinfo">
                     <h2><span>Ergo</span>-Commerce</h2>                                
                   </div></a>
               </div>
@@ -215,11 +215,13 @@
 
   </body>
   <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
-
+<!-- Fix for old browsers -->
+        <script src="http://nervgh.github.io/js/es5-shim.min.js"></script>
+        <script src="http://nervgh.github.io/js/es5-sham.min.js"></script>
   <script type="text/javascript" src="js/lib/angular/angular.min.js"></script>
   <script type="text/javascript" src="js/lib/angular/angular-resource.min.js"></script>
   <script type="text/javascript" src="js/lib/angular/angular-route.min.js"></script>
-  <script type="text/javascript" src="js/angular/angular-file-upload.min.js"></script>
+  <script type="text/javascript" src="js/lib/angular/angular-file-upload.js"></script>
 
   <script type="text/javascript" src="js/angular/app.js"></script>
   <script type="text/javascript" src="js/angular/routes.js"></script>
