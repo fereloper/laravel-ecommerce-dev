@@ -115,12 +115,21 @@ Route::group(array('prefix' => 'api/v1'), function() {
                             ), $bridgedResponse->getStatusCode());
         }
     });
+  /*
+   * Product CRUD
+   */
+  Route::resource('product','ProductController');
+  
+  /*
+   * Category
+   */
+  Route::get('category','Product');
     
  /**
   * Product listing routes 
   */
      Route::get('products/category/{category_id}/sub-category/{sub_category_id}', 'ProductController@getProductByCategory');
-     Route::get('product/{product_id}/{product_name?}', 'ProductController@getProductById');
+//     Route::get('product/{product_id}/{product_name?}', 'ProductController@getProductById');
   //Product update api (Image upload)
      Route::post('product/upload','ProductController@upload');
      Route::get('create-db','LocationController@createDB');
