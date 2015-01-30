@@ -76,7 +76,7 @@ class OrderController extends \BaseController {
                 }else{
                     $data = array(
                         'response'  => 'Error',
-                        'message'   => 'Problem occared when try to connect remote server.',
+                        'message'   => 'Problem occared when try to connect remote server. Please try again.',
                         'code'      => 400,
                     );
                 }
