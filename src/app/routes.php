@@ -74,6 +74,14 @@ Route::group(array('prefix' => 'api/v1'), function() {
     Route::get('auth/logout', 'UserController@logout');
 
     Route::get('auth/islogged', 'UserController@isLogged');
+    
+    /*
+     * Cart route sector.....
+     */
+    Route::resource('cart', 'CartController');  
+    Route::post('cart/add-to-wishlist', 'CartController@addToWishlist');
+    Route::get('cart/wishlist', 'CartController@showWishlistProducts');
+    Route::post('cart/delete-wishlist', 'CartController@deleteWishlistProduct');
 
     Route::post('oauth/token', function() {
 
