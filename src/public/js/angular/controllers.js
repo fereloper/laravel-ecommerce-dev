@@ -43,10 +43,31 @@ app.controller('ProfileCtrl', ['$scope', '$location', 'authService', 'sessionSer
                 $location.path('user');
             }
         };
+
+
+    }]);
+
+app.controller('ProfileEditCtrl', ['$scope', '$location', 'authService', 'sessionService', 'Data', function ($scope, $location, authService, sessionService, Data) {
+        if (authService.isLogged()) {
+            Data.get('user/' + sessionService.get('user_id') + '/edit').then(function (results) {
+                if (results.response == "OK") {                    
+//                    $scope.profile.country = "Afghanistan";
+                    $scope.profile = results;
+                    console.log($scope.profile);
+                } else {
+
+                }
+            });
+        } else {
+            $location.path('user');
+        }
+
+        $scope.countryChanged = function () {
+            $scope.cityItems = $scope.profile.country.cities;
+        }
         $scope.update = function (user) {
-            if (authService.isLogged()) {
+            if (authService.isLogged()) {            
                 Data.put('user/' + sessionService.get('user_id'), user).then(function (results) {
-                    console.log(results);
                     if (results.response == "OK") {
                         $location.path('profile');
                     }
@@ -54,7 +75,9 @@ app.controller('ProfileCtrl', ['$scope', '$location', 'authService', 'sessionSer
             } else {
                 $location.path('user');
             }
-        }
+        };
+
+
     }]);
 
 app.controller('verifyCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
@@ -72,19 +95,64 @@ app.controller('ConfirmCtrl', function ($scope, $rootScope, $routeParams, $locat
     }
 
 });
+app.controller('CategoryCtrl', function ($scope, $rootScope, $routeParams, $location, $http) {    
+    Data.get('api/v1/category/' + $routeParams.cat_name + '/sub/' + $routeParams.cat_name).then(function (results) {
+        console.log(results);
+    });
+
+});
 //Image uplaod controller
-app.controller('UploadCtrl', ['$scope', '$upload', function ($scope, $upload) {
-        $scope.$watch('file', function () {
-            $scope.upload = $upload.upload({
-                url: 'api/v1/product/upload',
-                data: {myObj: $scope.myModelObj},
-                file: $scope.files
-            }).progress(function (evt) {
-                console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :' + evt.config.file.name);
-            }).success(function (data, status, headers, config) {
-                console.log('file ' + config.file.name + 'is uploaded successfully. Response: ' + data);
-            });
+app.controller('UploadCtrl', ['$scope', 'FileUploader', function ($scope, FileUploader) {
+        var uploader = $scope.uploader = new FileUploader({
+            url: 'api/v1/product/upload'
         });
+
+        // FILTERS
+
+        uploader.filters.push({
+            name: 'customFilter',
+            fn: function (item /*{File|FileLikeObject}*/, options) {
+                return this.queue.length < 10;
+            }
+        });
+
+        // CALLBACKS
+
+        uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+        };
+        uploader.onAfterAddingFile = function (fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+        };
+        uploader.onAfterAddingAll = function (addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+        };
+        uploader.onBeforeUploadItem = function (item) {
+            console.info('onBeforeUploadItem', item);
+        };
+        uploader.onProgressItem = function (fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        uploader.onProgressAll = function (progress) {
+            console.info('onProgressAll', progress);
+        };
+        uploader.onSuccessItem = function (fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+        };
+        uploader.onErrorItem = function (fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        uploader.onCancelItem = function (fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteItem = function (fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteAll = function () {
+            console.info('onCompleteAll');
+        };
+
+        console.info('uploader', uploader);
 
     }]);
  

@@ -18,7 +18,7 @@ app.config(['$routeProvider', function ($routeProvider) {
                 .when('/user/edit', {
                     title: "Profile Edit",
                     templateUrl: 'template/profile_edit.html',
-                    controller: 'ProfileCtrl'
+                    controller: 'ProfileEditCtrl'
                 })
                 .when('/user/verify/:token/:id', {
                     title: "Verify your account",
@@ -30,6 +30,13 @@ app.config(['$routeProvider', function ($routeProvider) {
                     templateUrl: 'template/product/produt-view.html',
                     controller: 'UploadCtrl'
                 })
-               
+                .when('/category/:cat_name/sub/:sub_name', {
+                    title: "Product Listing",
+                    templateUrl: 'template/product/produt-list.html',
+                    controller: 'CategoryCtrl'
+                })
+                .otherwise({
+                    redirectTo: 'user'
+                });
     }]);
 

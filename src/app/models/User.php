@@ -17,6 +17,7 @@ class User extends MongoLid implements UserInterface, RemindableInterface {
      *
      * @var array
      */
+    
     protected $hidden = array('password');
     public static $rules = array(
         'name'                  => 'required|min:2',
