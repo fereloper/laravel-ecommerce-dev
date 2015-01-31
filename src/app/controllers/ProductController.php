@@ -214,7 +214,7 @@ class ProductController extends BaseController {
     }
     
     public function getBrands() {         
-        $brands = Brand::all();
+        $brands = Brand::all()->limit(6);
         $data = array();
         $i = 0;
         foreach ($brands as $item) { 
