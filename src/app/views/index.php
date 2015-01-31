@@ -94,7 +94,7 @@
                 <div class="panel panel-default" ng-repeat="category in categories">                    
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordian" href="#{{category.code}}">
+                      <a data-toggle="collapse" data-parent="#accordian" href="" data-target="#{{category.code}}">
                         
                        {{category.name}}
                       </a>

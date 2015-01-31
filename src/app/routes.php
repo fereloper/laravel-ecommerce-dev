@@ -138,6 +138,7 @@ Route::group(array('prefix' => 'api/v1'), function() {
    */
   Route::get('products/category/{category_id}/sub/{sub_category_id}', 'ProductController@getProductBySubCategory');
   Route::get('products/category/{category_id}', 'ProductController@getProductByCategory');
+  Route::get('products/brand/{brand_id}', 'ProductController@getProductByBrand');
 //     Route::get('product/{product_id}/{product_name?}', 'ProductController@getProductById');
   //Product update api (Image upload)
   Route::post('product/upload', 'ProductController@upload');
