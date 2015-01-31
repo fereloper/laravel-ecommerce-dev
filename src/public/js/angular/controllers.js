@@ -235,21 +235,38 @@ app.controller('HomeCtrl', function ($scope, $rootScope, $routeParams, $location
 
 });
 
-app.controller('ProductCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data,FileUploader) {
+app.controller('ProductCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, FileUploader, authService,sessionService) {
+    if (authService.isLogged()) {
+        $scope.user_status = true;
+    } else {
+        $scope.user_status = false;
+    }
     Data.get('category').then(function (results) {
         $scope.categories = results;
         console.log(results);
     });
     $scope.categoryChanged = function () {
+        Data.get('brand/' + $scope.product.category._id.$id).then(function (results) {
+            $scope.brands = results;
+        });
         $scope.subCategory = $scope.product.category.child;
     }
-    $scope.subCategoryChanged = function () {
-        $scope.subCategory = $scope.product.category.child;
-    }
-    $scope.save = function (user) {
-        Data.post('product').then(function (results) {
-            $scope.products = results;
-//        console.log(results);
+    $scope.save = function (user) {      
+        var data = {
+            'title': user.title,
+            'category': user.category.code,
+            'sub_category': user.sub.code,
+            'brand': user.brand.name,
+            'model': user.model,
+            'price': user.price,
+            'year': user.year,
+            'milage': user.milage,
+            'seller_id': sessionService.get('user_id')
+        };
+        
+        Data.post('product',data).then(function (results) {
+//            $scope.products = results;
+            console.log(results);
         });
     }
     var uploader = $scope.uploader = new FileUploader({

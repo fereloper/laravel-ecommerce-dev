@@ -1,17 +1,20 @@
 <div class="signup-form">
     <form>
-        <select name="category" ng-model="product.category" ng-options="category.name for category in categories track by category.name" ng-change="categoryChanged()">
+        <select name="category" ng-model="product.category" ng-options="category.name for category in categories track by category.name" ng-change="categoryChanged()" required>
             <option value="">-- Select Category --</option>
         </select>
         <!--<select ng-model="profile.country" ng-options="country.name for country in profile.location" ng-change="countryChanged()"></select>-->
 
-        <select name="city"  ng-model="profile.sub"  ng-options="sub.name for sub in subCategory track by sub.name" ng-change="subCategoryChanged()">
+        <select name="city"  ng-model="product.sub"  ng-options="sub.name for sub in subCategory track by sub.name">
             <option value="">-- Select Sub category --</option>
         </select>
 
-        <select name="brand" >
+        <select class="brand" name="brand"  ng-model="product.brand"  ng-options="brand.name for brand in brands track by brand.name">
             <option value="">-- Select Brand --</option>
         </select>
+        <input class="brand" placeholder="Model" type="text" name="model" ng-model="product.model" />
+        <input class="brand" placeholder="Year" type="text" name="year" ng-model="product.year" />
+        <input type="text" placeholder="Milage" name="milage" ng-model="product.milage" />
 
         <input type="text" placeholder="Add a Title" name="title" ng-model="product.title" />
         <input type="text" placeholder="Price" name="price" ng-model="product.price" />
@@ -25,13 +28,13 @@
         <div class="col-md-3">
 
             <h3>Upload Image</h3>
-           
+
             <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
 
         </div>
 
         <div class="col-md-9" style="margin-bottom: 40px">
-            
+
             <table class="table">
                 <thead>
                     <tr>
@@ -93,5 +96,5 @@
 
     </div>
 
-
+    <button type="submit" class="btn btn-default" ng-click="save(product,signup)" >Post your add</button> 
 </div>
