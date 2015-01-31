@@ -203,9 +203,13 @@ class ProductController extends BaseController {
   }
 
   public function upload() {
+    $file = Input::file('file');
+    $filename        = str_random(24) . '_' . $file->getClientOriginalName();
+    $success = $file->move(__DIR__ . '/../storage/catalog/product/', $filename);
+   
 
-    if (Input::file('file')->move(__DIR__ . '/../storage/catalog/product/', Input::file('file')->getClientOriginalName())) {
-      return true;
+    if ($success) {
+      return $filename;
     }
     else {
       return false;

@@ -192,7 +192,12 @@ app.controller('BrandsCtrl', function ($scope, $rootScope, $routeParams, $locati
 app.controller('CartCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
     Data.get('cart').then(function (results) {
         $scope.products = results.products;
-        console.log(results);
+        
+        var total = 0;
+        for(var value in results.products) {
+            total = total +results.products[value].subtotal;
+        }
+        $scope.grandTotal = total;
     });
 
 });
@@ -235,7 +240,7 @@ app.controller('HomeCtrl', function ($scope, $rootScope, $routeParams, $location
 
 });
 
-app.controller('ProductCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, FileUploader, authService,sessionService) {
+app.controller('ProductCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, FileUploader, authService, sessionService) {
     if (authService.isLogged()) {
         $scope.user_status = true;
     } else {
@@ -251,7 +256,8 @@ app.controller('ProductCtrl', function ($scope, $rootScope, $routeParams, $locat
         });
         $scope.subCategory = $scope.product.category.child;
     }
-    $scope.save = function (user) {      
+    var images = [];
+    $scope.save = function (user) {
         var data = {
             'title': user.title,
             'category': user.category.code,
@@ -261,12 +267,21 @@ app.controller('ProductCtrl', function ($scope, $rootScope, $routeParams, $locat
             'price': user.price,
             'year': user.year,
             'milage': user.milage,
-            'seller_id': sessionService.get('user_id')
+            'quantity': user.quantity,
+            'seller_id': sessionService.get('user_id'),
+            'images': images
         };
-        
-        Data.post('product',data).then(function (results) {
-//            $scope.products = results;
-            console.log(results);
+
+
+        Data.post('product', data).then(function (results) {
+            if (results.response == 'OK') {
+                sessionService.set('message', "Successfully added the product. It will appear to user as soon as possible.");
+
+            } else {
+                sessionService.set('message', "There is an error, please try again.");
+
+            }
+            $location.path('user/confirmation');
         });
     }
     var uploader = $scope.uploader = new FileUploader({
@@ -303,6 +318,7 @@ app.controller('ProductCtrl', function ($scope, $rootScope, $routeParams, $locat
         console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        images.push(response);
         console.info('onSuccessItem', fileItem, response, status, headers);
     };
     uploader.onErrorItem = function (fileItem, response, status, headers) {
@@ -318,7 +334,7 @@ app.controller('ProductCtrl', function ($scope, $rootScope, $routeParams, $locat
         console.info('onCompleteAll');
     };
 
-    console.info('uploader', uploader);
+//    console.info('uploader', uploader);
 
 
 });
