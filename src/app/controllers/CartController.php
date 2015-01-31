@@ -1,9 +1,11 @@
 <?php
 class CartController extends \BaseController {
     
-    public function index(){  
+    public function index(){ 
+        //return Cart::instance('shopping')->destroy();
         $data = array();
         $product_list = Cart::instance('shopping')->content();
+        //return $product_list;
         $count = Cart::instance('shopping')->count(false);
         $total_price = Cart::instance('shopping')->total();
     
@@ -20,12 +22,14 @@ class CartController extends \BaseController {
     
     public function store(){  
         $data = array();
-        $product_id = Input::get('id');
-        //$p_value = Product::first(['_id' => $product_id]);
+        $product_id = Input::get('_id');
         
-        //Cart::add(array('id' => $p_value->_id, 'name' => $p_value->name, 'qty' => Input::get('qty'), 'price' => $p_value->price, 'options' => array('size' => Input::get('size'),'color' => $p_value->color)));
-        Cart::instance('shopping')->add(array('id' => '294ad', 'name' => 'Product 1', 'qty' => 2, 'price' => 9.99, 'options' => array('size' => 'large')));
-    
+        //return $product_id;
+        
+        $p_value = Product::first(['_id' => $product_id]);
+        Cart::instance('shopping')->add(array('id' => $p_value->_id, 'name' => $p_value->title, 'qty' => 1, 'price' => $p_value->price));
+//        Cart::instance('wishlist')->add(array('id' => '294ad', 'name' => 'Product 1', 'qty' => 2, 'price' => 9.99, 'options' => array('size' => 'large')));
+          
         $data = array(
                     'response'          => 'OK',
                     'message'           => 'Product successfully added to cart.',
@@ -67,11 +71,13 @@ class CartController extends \BaseController {
     
     public function addToWishlist(){  
         $data = array();
-        $product_id = Input::get('id');
-        //$p_value = Product::first(['_id' => $product_id]);
+        $product_id = Input::get('_id');
         
-        //Cart::add(array('id' => $p_value->_id, 'name' => $p_value->name, 'qty' => Input::get('qty'), 'price' => $p_value->price, 'options' => array('size' => Input::get('size'),'color' => $p_value->color)));
-        Cart::instance('wishlist')->add(array('id' => '294ad', 'name' => 'Product 1', 'qty' => 2, 'price' => 9.99, 'options' => array('size' => 'large')));
+        //return $product_id;
+        
+        $p_value = Product::first($product_id);
+        Cart::instance('wishlist')->add(array('id' => $p_value->_id, 'name' => $p_value->title, 'qty' => 1, 'price' => $p_value->price));
+//        Cart::instance('wishlist')->add(array('id' => '294ad', 'name' => 'Product 1', 'qty' => 2, 'price' => 9.99, 'options' => array('size' => 'large')));
     
         $data = array(
                     'response'          => 'OK',

@@ -178,12 +178,70 @@ app.controller('UploadCtrl', ['$scope', 'FileUploader', function ($scope, FileUp
 
     }]);
 app.controller('CategoryShowCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
-    Data.get('category').then(function(results){
-        $scope.categories = results;        
+    Data.get('category').then(function (results) {
+        $scope.categories = results;
     });
 
 });
+app.controller('BrandsCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+    Data.get('brand').then(function (results) {
+        $scope.brands = results;
+    });
+
+});
+app.controller('CartCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+    Data.get('cart').then(function (results) {
+        $scope.products = results.products;
+        console.log(results);
+    });
+
+});
+
+app.controller('WishlistCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+    Data.get('wishlist').then(function (results) {
+        $scope.products = results.products;
+        console.log(results);
+    });
+    $scope.addToCart = function (item) {
+        console.log(item.id.$id);
+        var id = {'_id': item.id.$id};
+        Data.post('cart', id).then(function (results) {
+//            $scope.products = results;
+            console.log(results);
+        });
+    }
+
+});
 app.controller('HomeCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
-   
+    Data.get('featured-product').then(function (results) {
+        $scope.products = results;
+//        console.log(results);
+    });
+
+    $scope.addToWishList = function (item) {
+        var id = {'_id': item._id.$id};
+        Data.post('add-to-wishlist', id).then(function (results) {
+//            $scope.products = results;
+            console.log(results);
+        });
+    }
+
+});
+
+app.controller('ProductCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+    Data.get('category').then(function (results) {
+        $scope.categories = results;
+        console.log(results);
+    });
+    $scope.categoryChanged = function () {
+        $scope.subCategory = $scope.product.category.child;
+    }
+    $scope.save = function (user) {
+        Data.post('product').then(function (results) {
+            $scope.products = results;
+//        console.log(results);
+        });
+    }
+
 
 });

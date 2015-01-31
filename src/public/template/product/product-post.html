@@ -1,0 +1,10 @@
+<form>
+    <select name="category" ng-model="product.category" ng-options="category.name for category in categories track by category.name" ng-change="categoryChanged()">
+        <option value="">-- Select Category --</option>
+    </select>
+    <!--<select ng-model="profile.country" ng-options="country.name for country in profile.location" ng-change="countryChanged()"></select>-->
+
+    <select name="city"  ng-model="profile.sub"  ng-disabled="!profile.sub" ng-options="sub.name for sub in subCategory track by sub.name">
+        <option value="">-- Select Sub category --</option>
+    </select>
+</form>

@@ -1,0 +1,18 @@
+<div class="features_items">
+     <h2 class="title text-center">My Wishlist</h2>
+    <div class="col-sm-4" ng-repeat="product in products">
+        <div class="product-image-wrapper">
+            <div class="single-products">
+                <div class="productinfo text-center">
+                    <img src="images/home/product1.jpg" alt="" />
+                    <h2>{{product.price}}</h2>
+                    <p>{{product.title}}</p>
+                    <a href="#" class="btn btn-default add-to-cart" ng-click="addToCart(product)"><i class="icon-shopping-cart"></i>Add to cart</a>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+

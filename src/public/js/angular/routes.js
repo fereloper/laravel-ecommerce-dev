@@ -31,18 +31,33 @@ app.config(['$routeProvider', function ($routeProvider) {
                 })
                 .when('/product/uplaod', {
                     title: "Verify your account",
-                    templateUrl: 'template/product/produt-view.html',
+                    templateUrl: 'template/product/product-view.html',
                     controller: 'UploadCtrl'
+                })
+                 .when('/product/add', {
+                    title: "Add your product",
+                    templateUrl: 'template/product/product-post.html',
+                    controller: 'ProductCtrl'
                 })
                 .when('/category/:cat_name/sub/:sub_name', {
                     title: "Product Listing",
-                    templateUrl: 'template/product/produt-list.html',
+                    templateUrl: 'template/product/product-list.html',
                     controller: 'CategoryCtrl'
                 })
                 .when('/rating', {
                     title: "Product Listing",
                     templateUrl: 'template/product/rating.html',
                     controller: 'RatingDemoCtrl'
+                })
+                .when('/wishlist', {
+                    title: "Wishlist",
+                    templateUrl: 'template/product/product-wishlist.html',
+                    controller: 'WishlistCtrl'
+                })
+                .when('/cart', {
+                    title: "Cart",
+                    templateUrl: 'template/product/product-cart.html',
+                    controller: 'CartCtrl'
                 })
                 .otherwise({
                     redirectTo: 'user'

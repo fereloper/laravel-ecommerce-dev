@@ -74,7 +74,7 @@
             <div class="col-sm-4">
               <div class="shop-menu pull-right">
                 <ul class="nav navbar-nav">								
-                  <li><a href="#"><i class="icon-star"></i> Wishlist</a></li>								
+                  <li><a href="#/wishlist"><i class="icon-star"></i> Wishlist</a></li>								
                   <li><a href="#/cart"><i class="icon-shopping-cart"></i> Cart</a></li>
                   <li><a href="#/user"><i class="icon-lock"></i> Login</a></li>
                 </ul>
@@ -112,17 +112,11 @@
 
               </div><!--/category-products-->
 
-              <div class="brands_products"><!--brands_products-->
+              <div class="brands_products" ng-controller="BrandsCtrl"><!--brands_products-->
                 <h2>Brands</h2>
                 <div class="brands-name">
                   <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-                    <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-                    <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-                    <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-                    <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                    <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                    <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+                    <li ng-repeat="brand in brands"><a href="#"> <span class="pull-right">({{brand.count}})</span>{{brand.name}}</a></li>
                   </ul>
                 </div>
               </div><!--/brands_products-->
