@@ -21,10 +21,10 @@ class CartController extends \BaseController {
     public function store(){  
         $data = array();
         $product_id = Input::get('id');
-        //$p_value = Product::first(['_id' => $product_id]);
+        $p_value = Product::first(['_id' => $product_id]);
         
-        //Cart::add(array('id' => $p_value->_id, 'name' => $p_value->name, 'qty' => Input::get('qty'), 'price' => $p_value->price, 'options' => array('size' => Input::get('size'),'color' => $p_value->color)));
-        Cart::instance('shopping')->add(array('id' => '294ad', 'name' => 'Product 1', 'qty' => 2, 'price' => 9.99, 'options' => array('size' => 'large')));
+        Cart::instance('shopping')->add(array('id' => $p_value->_id, 'name' => $p_value->title, 'qty' => 1, 'price' => $p_value->price));
+        //Cart::instance('shopping')->add(array('id' => '294ad', 'name' => 'Product 1', 'qty' => 2, 'price' => 9.99, 'options' => array('size' => 'large')));
     
         $data = array(
                     'response'          => 'OK',
@@ -68,10 +68,10 @@ class CartController extends \BaseController {
     public function addToWishlist(){  
         $data = array();
         $product_id = Input::get('id');
-        //$p_value = Product::first(['_id' => $product_id]);
+        $p_value = Product::first(['_id' => $product_id]);
         
-        //Cart::add(array('id' => $p_value->_id, 'name' => $p_value->name, 'qty' => Input::get('qty'), 'price' => $p_value->price, 'options' => array('size' => Input::get('size'),'color' => $p_value->color)));
-        Cart::instance('wishlist')->add(array('id' => '294ad', 'name' => 'Product 1', 'qty' => 2, 'price' => 9.99, 'options' => array('size' => 'large')));
+        Cart::add(array('id' => $p_value->_id, 'name' => $p_value->name, 'qty' => Input::get('qty'), 'price' => $p_value->price, 'options' => array('size' => Input::get('size'),'color' => $p_value->color)));
+        //Cart::instance('wishlist')->add(array('id' => '294ad', 'name' => 'Product 1', 'qty' => 2, 'price' => 9.99, 'options' => array('size' => 'large')));
     
         $data = array(
                     'response'          => 'OK',
