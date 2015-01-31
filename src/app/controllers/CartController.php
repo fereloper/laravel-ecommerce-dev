@@ -29,7 +29,7 @@ class CartController extends \BaseController {
         $p_value = Product::first(['_id' => $product_id]);
         Cart::instance('shopping')->add(array('id' => $p_value->_id, 'name' => $p_value->title, 'qty' => 1, 'price' => $p_value->price));
 //        Cart::instance('wishlist')->add(array('id' => '294ad', 'name' => 'Product 1', 'qty' => 2, 'price' => 9.99, 'options' => array('size' => 'large')));
-          
+
         $data = array(
                     'response'          => 'OK',
                     'message'           => 'Product successfully added to cart.',
