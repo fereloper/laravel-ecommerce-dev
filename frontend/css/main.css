@@ -149,13 +149,15 @@ a#scrollUp i{
     background: #FFF;
     padding-top: 15px;
     padding-bottom: 15px;
+        margin-bottom: 20px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,.1);
 }
 .header-middle .container .row {
     border-bottom: 0px solid #f5f5f5;
-    margin-left: 0;
-    margin-right: 0;
+    
     padding-bottom: 20px;
     padding-top: 20px;
+
 }
 
 .header-middle .container .row .col-sm-4{
@@ -358,7 +360,12 @@ ul.sub-menu {
 **************************/
 
 #footer {
-    background: #F0F0E9;
+    
+  background: -webkit-linear-gradient(0deg, #606c88 10%, #3f4c6b 90%); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(0deg, #606c88 10%, #3f4c6b 90%); /* FF3.6+ */
+  background:     -ms-linear-gradient(0deg, #606c88 10%, #3f4c6b 90%); /* IE10 */
+  background:      -o-linear-gradient(0deg, #606c88 10%, #3f4c6b 90%); /* Opera 11.10+ */
+  background:         linear-gradient(0deg, #606c88 10%, #3f4c6b 90%); /* W3C */
 }
 
 
@@ -479,15 +486,19 @@ ul.sub-menu {
 
 .footer-widget {
     margin-bottom: 68px;
+     border-top:1px solid rgba(0, 0, 0, 0.8);
+
+        
 }
 
 .footer-widget .container {
-    border-top: 1px solid #FFFFFF;
+    border-top: 0px solid #FFFFFF;
     padding-top: 15px;
+    
 }
 
 .single-widget h2 {
-    color: #666663;
+    color: #fff;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 500;
@@ -500,7 +511,7 @@ ul.sub-menu {
 }
 
 .single-widget ul li a{
-    color: #8C8C88;
+    color: #eee;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-weight: 300;
@@ -530,12 +541,12 @@ ul.sub-menu {
 
 
 .searchform button {
-    background: #FE980F;
+    background: none repeat scroll 0 0 #fe980f;
     border: medium none;
     border-radius: 0;
     margin-left: -5px;
-    margin-top: -3px;
-    padding: 7px 17px;
+    margin-top: -1px;
+    padding: 6px 17px;
 }
 
 .searchform button i {
@@ -712,12 +723,46 @@ ul.sub-menu {
     font-size: 14px;
     text-decoration: none;
     text-transform: uppercase;
+    position: relative;
+    line-height: 14px;
+    display: block;
 }
-
+.category-products .panel-default .panel-heading .panel-title a[data-toggle="collapse"]:after{
+   font-family:'FontAwesome';
+    content:"\f067";
+    position: absolute;
+    right: 0px;
+    border: 1px solid #fe980f;
+    color: #fe980f;
+    padding: 3px 4px;
+    border-radius: 40px;
+    background: rgba(0,0,0,0);
+    top: -4px;
+    
+}
 .panel-group .panel-heading + .panel-collapse .panel-body {
-    border-top: 0 none;
+    border-top: 1px solid  rgba(0, 0, 0, 0.2)
 }
-
+.category-products .panel-collapse .panel-body{
+    padding: 0px;
+}
+.category-products .panel-body ul > li > a{
+    color: #696763;
+    display: block;
+    font-family: "Roboto",sans-serif;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 7px 0px;
+    position: relative;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.category-products .panel-body ul > li > a:before{
+    font-family:'FontAwesome';
+   content:"\f105";
+   padding: 0 6px 0 0;
+   color: #fe980f;
+}
 .category-products .badge {
     background:none;
     border-radius: 10px;
@@ -743,7 +788,7 @@ ul.sub-menu {
 .panel-body ul li a {
     color: #696763;
     font-family: 'Roboto', sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     text-transform: uppercase;
 }
 
@@ -816,7 +861,9 @@ ul.sub-menu {
     margin-left: -5px;
 }
 
-
+#conaten-area{
+    padding-bottom: 30px;
+}
 .padding-right {
     padding-right: 0;
 }
@@ -844,7 +891,7 @@ h2.title {
 }
 
 .product-image-wrapper{
-    border:1px solid #F7F7F5;
+    border:1px solid #fe980f;
     overflow: hidden;
     margin-bottom:30px;
 }
@@ -870,8 +917,18 @@ h2.title {
     font-family: 'Roboto', sans-serif;
     font-size: 24px;
     font-weight: 700;
+    text-align: center;
 }
-
+.productinfo .price{
+    background: none repeat scroll 0 0 #fe980f;
+    border: 0px solid #fe980f;
+    border-radius: 0px;
+    
+    color: #fff;
+    display: inline-block;
+    padding: 8px 20px;
+        transform: rotate(15deg);
+}
 
 .productinfo p{
     font-family: 'Roboto', sans-serif;
@@ -882,10 +939,14 @@ h2.title {
 
 .productinfo img{
     width: 100%;
+    border-bottom: 1px solid #fe980f;
+     margin-bottom: -42px
 }
 
 .productinfo{
     position:relative;
+    background: rgba(0,50,0,.3);
+    color: #FFF;
 }
 
 .product-overlay {
@@ -969,7 +1030,8 @@ h2.title {
 }
 
 .choose {
-    border-top: 1px solid #F7F7F0;
+    border-top: 1px solid #fe980f;
+    background: #FFF;
 }
 
 .choose ul li a {

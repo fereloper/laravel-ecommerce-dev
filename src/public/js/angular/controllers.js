@@ -178,12 +178,130 @@ app.controller('UploadCtrl', ['$scope', 'FileUploader', function ($scope, FileUp
 
     }]);
 app.controller('CategoryShowCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
-    Data.get('category').then(function(results){
-        $scope.categories = results;        
+    Data.get('category').then(function (results) {
+        $scope.categories = results;
     });
 
 });
+app.controller('BrandsCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+    Data.get('brand').then(function (results) {
+        $scope.brands = results;
+    });
+
+});
+app.controller('CartCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+    Data.get('cart').then(function (results) {
+        $scope.products = results.products;
+        console.log(results);
+    });
+
+});
+
+app.controller('WishlistCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+    Data.get('wishlist').then(function (results) {
+        $scope.products = results.products;
+        console.log(results);
+    });
+    $scope.addToCart = function (item) {
+        console.log(item.id.$id);
+        var id = {'_id': item.id.$id};
+        Data.post('cart', id).then(function (results) {
+//            $scope.products = results;
+            console.log(results);
+        });
+    }
+
+});
 app.controller('HomeCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
-   
+    Data.get('featured-product').then(function (results) {
+        $scope.products = results;
+//        console.log(results);
+    });
+
+    $scope.addToWishList = function (item) {
+        var id = {'_id': item._id.$id};
+        Data.post('add-to-wishlist', id).then(function (results) {
+//            $scope.products = results;
+            console.log(results);
+        });
+    }
+    $scope.viewDetails = function (item) {
+
+        Data.post('add-to-wishlist', id).then(function (results) {
+//            $scope.products = results;
+            console.log(results);
+        });
+    }
+
+});
+
+app.controller('ProductCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data,FileUploader) {
+    Data.get('category').then(function (results) {
+        $scope.categories = results;
+        console.log(results);
+    });
+    $scope.categoryChanged = function () {
+        $scope.subCategory = $scope.product.category.child;
+    }
+    $scope.subCategoryChanged = function () {
+        $scope.subCategory = $scope.product.category.child;
+    }
+    $scope.save = function (user) {
+        Data.post('product').then(function (results) {
+            $scope.products = results;
+//        console.log(results);
+        });
+    }
+    var uploader = $scope.uploader = new FileUploader({
+        url: 'api/v1/product/upload'
+    });
+
+    // FILTERS
+
+    uploader.filters.push({
+        name: 'customFilter',
+        fn: function (item /*{File|FileLikeObject}*/, options) {
+            return this.queue.length < 10;
+        }
+    });
+
+    // CALLBACKS
+
+    uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
+        console.info('onWhenAddingFileFailed', item, filter, options);
+    };
+    uploader.onAfterAddingFile = function (fileItem) {
+        console.info('onAfterAddingFile', fileItem);
+    };
+    uploader.onAfterAddingAll = function (addedFileItems) {
+        console.info('onAfterAddingAll', addedFileItems);
+    };
+    uploader.onBeforeUploadItem = function (item) {
+        console.info('onBeforeUploadItem', item);
+    };
+    uploader.onProgressItem = function (fileItem, progress) {
+        console.info('onProgressItem', fileItem, progress);
+    };
+    uploader.onProgressAll = function (progress) {
+        console.info('onProgressAll', progress);
+    };
+    uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        console.info('onSuccessItem', fileItem, response, status, headers);
+    };
+    uploader.onErrorItem = function (fileItem, response, status, headers) {
+        console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCancelItem = function (fileItem, response, status, headers) {
+        console.info('onCancelItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function (fileItem, response, status, headers) {
+        console.info('onCompleteItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteAll = function () {
+        console.info('onCompleteAll');
+    };
+
+    console.info('uploader', uploader);
+
 
 });

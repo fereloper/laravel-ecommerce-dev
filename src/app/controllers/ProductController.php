@@ -213,9 +213,17 @@ class ProductController extends BaseController {
         return json_encode(Category::all()->toArray());
     }
     
-    public function getBrands() {
-        $category = (int)Input::get('category_id');
-        return $brands = Brand::where(['category_id' => $category]);
+    public function getBrands() {         
+        $brands = Brand::all()->limit(6);
+        $data = array();
+        $i = 0;
+        foreach ($brands as $item) { 
+          $data[$i]['name'] = $item->name;
+          $data[$i]['count'] = Product::where(['brand' => $item->name])->count();
+          $i++;
+          
+        }
+        return $data;
     }
     
     public function saveBrands() {
@@ -288,12 +296,9 @@ class ProductController extends BaseController {
         
         $products = Product::where(['featured' => '1']);
         
+        
         if ($products) {
-            
-            $data['products']   = $products;
-            $data['response']   = 'OK';
-            $data['message']    = 'request success.';
-            $data['code']       = 200;
+            return json_encode($products->toArray());
         } else {
             
             $data = array(
@@ -303,7 +308,7 @@ class ProductController extends BaseController {
             );
         }
         
-        return $data;
+        return json_encode($data);
     }
 
 }
