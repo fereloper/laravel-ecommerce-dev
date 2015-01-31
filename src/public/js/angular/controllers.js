@@ -43,6 +43,17 @@ app.controller('ProfileCtrl', ['$scope', '$location', 'authService', 'sessionSer
                 $location.path('user');
             }
         };
+        $scope.mySellingProduct = function(){
+            if (authService.isLogged()) {
+                //$location.path('profile/my-selling-product');
+                Data.get('profile/my-selling-product/'+ sessionService.get('user_id')).then(function (results) {
+                    $scope.products = results;
+                    //console.log(results);
+                });
+            } else {
+                $location.path('user');
+            }
+        }
 
 
     }]);

@@ -59,6 +59,11 @@ app.config(['$routeProvider', function ($routeProvider) {
                     templateUrl: 'template/product/product-cart.html',
                     controller: 'CartCtrl'
                 })
+                .when('/profile/my-selling-product', {
+                    title: "My Products",
+                    templateUrl: 'template/my-product-list.html',
+                    controller: 'ProfileCtrl'
+                })
                 .otherwise({
                     redirectTo: 'user'
                 });

@@ -65,6 +65,9 @@ Route::group(array('prefix' => 'api/v1'), function() {
   Route::get('auth/logout', 'UserController@logout');
 
   Route::get('auth/islogged', 'UserController@isLogged');
+  
+  Route::get('profile/my-selling-product/{id}', 'UserController@getUserProductList');
+  Route::get('profile/my-purchased-product/{id}', 'UserController@getUserPurchasedProductList');
 
   /*
    * Cart route sector.....
